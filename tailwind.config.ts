@@ -20,6 +20,10 @@ const config: Config = {
       "main-purple-hover": "#A8A4FF",
       red: "#EA5555",
       "red-hover": "#FF9898",
+      "secondary-light": "#EFEFF9",
+      "secondary-light-hover": "#D8D7F1",
+      "secodnary-dark": "#3E3F4E",
+      "secodnary-dark-hover": "#5E5F75",
     },
     extend: {
       fontSize: {
