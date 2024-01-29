@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Button, IconButton, LinkButton } from "@/components/button";
 import { HiArrowLeft, HiArrowRight, HiCloudDownload } from "react-icons/hi";
 import ThemeToggler from "@/components/theme-toggler";
+import { FormControl } from "@/components/form-control";
+import Input from "@/components/input";
+import Textarea from "@/components/textarea";
+import Checkbox from "@/components/checkbox";
+import Select from "@/components/select";
 
 export const metadata: Metadata = {
   title: "Design :: Kanban",
@@ -72,6 +77,53 @@ const DesignPage = () => {
         <IconButton title="Test download" size="sm" loading>
           <HiCloudDownload />
         </IconButton>
+      </div>
+      <div className="grid gap-2">
+        <h2 className="text-hlg">Form Control</h2>
+      </div>
+      <h2 className="text-hlg">Input</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors flex justify-center items-center flex-wrap gap-3">
+        <Input />
+      </div>
+      <h2 className="text-hlg">Textarea</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors flex justify-center items-center flex-wrap gap-3">
+        <Textarea />
+      </div>
+      <h2 className="text-hlg">Checkbox</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors grid justify-center items-center gap-3">
+        <Checkbox label="Task 1" />
+        <Checkbox label="Default checked" defaultChecked />
+      </div>
+      <h2 className="text-hlg">Select</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors grid justify-center items-center gap-3">
+        <Select
+          options={[
+            "Item",
+            "Item",
+            "Item",
+            "Item",
+            "Item",
+            "Item",
+            "Item",
+            "Item",
+          ]}
+        />
+      </div>
+      <h2 className="text-hlg">FormControl</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors flex justify-center items-center flex-wrap gap-3">
+        <FormControl labelText="Form control" helpText="This is help text">
+          <Input placeholder="Placeholder text" />
+        </FormControl>
+        <FormControl
+          labelText="Form control - error state"
+          helpText="This is help text"
+          error
+        >
+          <Input />
+        </FormControl>
+        <FormControl labelText="Form control with textarea">
+          <Textarea />
+        </FormControl>
       </div>
     </main>
   );

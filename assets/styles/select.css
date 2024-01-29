@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .select {
+    @apply relative min-w-[12.5rem];
+  }
+
+  .select__input {
+    @apply cursor-pointer flex items-center justify-between select-none w-full;
+  }
+
+  .select__option_list {
+    @apply absolute w-full mt-2 z-10 bg-white border-2 border-lines-light rounded-md p-[0.375rem] text-bodysm text-medium-grey dark:bg-dark-grey dark:border-lines-dark max-h-[8.875rem] overflow-y-auto;
+  }
+  .select__option_list {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .select__option_list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .select__option {
+    @apply cursor-pointer w-full p-[0.375rem] rounded-md transition-colors bg-white hover:bg-opacity-50 hover:bg-light-grey dark:bg-dark-grey dark:hover:bg-white dark:hover:bg-opacity-10;
+  }
+}

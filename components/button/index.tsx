@@ -5,10 +5,10 @@ import { CgSpinner } from "react-icons/cg";
 import "@/assets/styles/button.css";
 import Link from "next/link";
 
-type T_Variants = "primary" | "secondary" | "destructive" | "ghost";
-type T_Sizes = "sm" | "md" | "lg";
+export type T_Variants = "primary" | "secondary" | "destructive" | "ghost";
+export type T_Sizes = "sm" | "md" | "lg";
 
-interface I_Props {
+export interface I_Props {
   variant?: T_Variants;
   size?: T_Sizes;
   startIcon?: ReactElement;
@@ -16,15 +16,15 @@ interface I_Props {
   loading?: boolean;
 }
 
-interface I_ButtonProps
+export interface I_ButtonProps
   extends I_Props,
     ButtonHTMLAttributes<HTMLButtonElement> {}
 
-interface I_LinkButtonProps extends Omit<I_Props, "loading">, LinkProps {
+export interface I_LinkButtonProps extends Omit<I_Props, "loading">, LinkProps {
   children: ReactElement | string;
 }
 
-interface I_IconButtonProps
+export interface I_IconButtonProps
   extends I_Props,
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
   children: ReactElement;

@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .form-control {
+    @apply grid gap-2;
+  }
+
+  .form-control__label {
+    @apply text-bodysm text-medium-grey dark:text-white transition-colors;
+  }
+
+  .form-control__help_text {
+    @apply text-bodysm font-medium text-medium-grey dark:text-white transition-colors;
+  }
+
+  .form-control.error .form-control__help_text {
+    @apply text-red;
+  }
+}

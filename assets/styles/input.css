@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply outline-none text-body text-black bg-white max-w-full border-2 border-lines-light rounded-md px-3 py-2 transition-colors dark:bg-very-dark-grey dark:text-white dark:border-lines-dark hover:border-main-purple-hover focus:border-main-purple dark:hover:border-main-purple-hover dark:focus:border-main-purple;
+  }
+
+  textarea.input {
+    resize: none;
+  }
+
+  .error .input {
+    @apply border-2 border-red text-red hover:border-red focus:border-red;
+  }
+}

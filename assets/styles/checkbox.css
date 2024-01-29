@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .checkbox {
+    @apply relative flex gap-3 items-center cursor-pointer select-none rounded-md p-3 transition-colors bg-main-purple bg-opacity-5 hover:bg-opacity-15 dark:bg-opacity-15 dark:hover:bg-opacity-35 focus-within:bg-opacity-15 focus-within:dark:bg-opacity-35;
+  }
+
+  .checkbox input {
+    @apply absolute -z-10 opacity-0 w-0 h-0 select-none;
+  }
+
+  .checkbox__box {
+    @apply w-4 h-4 border-2 border-lines-light rounded-sm flex items-center justify-center text-white transition-colors bg-white dark:bg-dark-grey dark:border-lines-dark;
+  }
+
+  .checkbox__span {
+    @apply text-bodysm transition-colors;
+  }
+
+  .checkbox.checked .checkbox__box {
+    @apply bg-main-purple border-main-purple;
+  }
+  .checkbox.checked .checkbox__span {
+    @apply text-medium-grey line-through;
+  }
+}
