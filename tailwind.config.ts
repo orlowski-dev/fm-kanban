@@ -24,6 +24,7 @@ const config: Config = {
       "secondary-light-hover": "#D8D7F1",
       "secodnary-dark": "#3E3F4E",
       "secodnary-dark-hover": "#5E5F75",
+      success: "#2ed573",
     },
     extend: {
       fontSize: {

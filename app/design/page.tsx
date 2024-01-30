@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Button, IconButton, LinkButton } from "@/components/button";
 import { HiArrowLeft, HiArrowRight, HiCloudDownload } from "react-icons/hi";
 import ThemeToggler from "@/components/theme-toggler";
-import { FormControl } from "@/components/form-control";
 import Input from "@/components/input";
 import Textarea from "@/components/textarea";
 import Checkbox from "@/components/checkbox";
 import Select from "@/components/select";
+import Alert from "@/components/alert";
 
 export const metadata: Metadata = {
   title: "Design :: Kanban",
@@ -109,21 +109,16 @@ const DesignPage = () => {
           ]}
         />
       </div>
-      <h2 className="text-hlg">FormControl</h2>
-      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors flex justify-center items-center flex-wrap gap-3">
-        <FormControl labelText="Form control" helpText="This is help text">
-          <Input placeholder="Placeholder text" />
-        </FormControl>
-        <FormControl
-          labelText="Form control - error state"
-          helpText="This is help text"
-          error
-        >
-          <Input />
-        </FormControl>
-        <FormControl labelText="Form control with textarea">
-          <Textarea />
-        </FormControl>
+      <h2 className="text-hlg">Alert</h2>
+      <div className="p-6 rounded-lg bg-white dark:bg-dark-grey transition-colors grid justify-center items-center gap-3">
+        <Alert title="Success alert" type="success" detail="This is an alert" />
+        <Alert
+          title="Error alert"
+          type="error"
+          detail="This is an error alert with icon"
+          icon
+        />
+        <Alert title="Info alert" type="info" detail="This is an info alert" />
       </div>
     </main>
   );

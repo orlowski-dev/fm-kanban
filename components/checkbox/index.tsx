@@ -1,7 +1,7 @@
 "use client";
 import { makeClassList } from "@/lib/utils";
 import type { ForwardedRef, InputHTMLAttributes } from "react";
-import { forwardRef, useId, useState } from "react";
+import { forwardRef, useState } from "react";
 import { HiCheck } from "react-icons/hi";
 import "@/assets/styles/checkbox.css";
 

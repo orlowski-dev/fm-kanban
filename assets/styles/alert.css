@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .alert {
+    @apply text-bodysm p-4 rounded-md  grid gap-3;
+  }
+
+  .alert__header {
+    @apply flex items-center gap-3;
+  }
+
+  .alert__detail {
+    @apply font-medium;
+  }
+
+  .alert.error {
+    @apply bg-red bg-opacity-5 dark:bg-opacity-10 transition-colors text-red dark:text-white;
+  }
+
+  .alert.success {
+    @apply bg-success bg-opacity-5 dark:bg-opacity-10 transition-colors text-success dark:text-white;
+  }
+
+  .alert.info {
+    @apply bg-main-purple bg-opacity-5 dark:bg-opacity-10 transition-colors text-main-purple dark:text-white;
+  }
+}

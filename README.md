@@ -14,3 +14,6 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 - [next-themes](https://www.npmjs.com/package/next-themes)
 - [react icons](https://react-icons.github.io/react-icons/)
 - [framer motion](https://www.framer.com/motion/)
+- [mongodb](https://www.npmjs.com/package/mongodb)
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+- [react-hook-form](https://react-hook-form.com/)
