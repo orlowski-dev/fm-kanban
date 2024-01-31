@@ -8,6 +8,7 @@ import Input from "@/components/input";
 import formReducer from "@/lib/reducers/form-reducer";
 import createUserAction from "@/lib/server-actions/create-user-action";
 import Alert from "@/components/alert";
+import { FormControl } from "@/components/form-control";
 
 interface I_Inputs {
   name: string;
@@ -30,7 +31,10 @@ const RegisterForm = () => {
 
   const onSubmit: SubmitHandler<I_Inputs> = async (data) => {
     dispach({ name: "setLoading" });
-    const result: I_ServerActionResponse = await createUserAction(data);
+    const result: I_ServerActionResponse = await createUserAction({
+      ...data,
+      email: data.email.toLowerCase(),
+    });
 
     if (result.status !== 201) {
       dispach({
@@ -60,44 +64,57 @@ const RegisterForm = () => {
           detail={states.formErrorMessage ?? "Unknown error. Try again."}
         />
       ) : undefined}
-      <Input
+
+      <FormControl
         labelText="Full name"
         helpText={errors.name?.message ?? undefined}
         error={Boolean(errors.name?.message ?? undefined)}
-        {...register("name", {
-          required: "This field is required",
-          pattern: {
-            value:
-              /^[^0-9!@#$%^&*()_+={}[\]:;<>,.?/~`\\|-]+ [^0-9!@#$%^&*()_+={}[\]:;<>,.?/~`\\|-]{2,30}$/,
-            message: "Enter a valid full name",
-          },
-        })}
-      />
-      <Input
+      >
+        <Input
+          autoComplete="on"
+          {...register("name", {
+            required: "This field is required",
+            pattern: {
+              value:
+                /^[^0-9!@#$%^&*()_+={}[\]:;<>,.?/~`\\|-]+ [^0-9!@#$%^&*()_+={}[\]:;<>,.?/~`\\|-]{2,30}$/,
+              message: "Enter a valid full name",
+            },
+          })}
+        />
+      </FormControl>
+      <FormControl
         labelText="E-mail address"
         helpText={errors.email?.message ?? undefined}
         error={Boolean(errors.email?.message ?? undefined)}
-        {...register("email", {
-          required: "This field is required",
-          pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Enter a valid email address",
-          },
-        })}
-      />
-      <Input
-        type="password"
+      >
+        <Input
+          type="email"
+          autoComplete="on"
+          {...register("email", {
+            required: "This field is required",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Enter a valid email address",
+            },
+          })}
+        />
+      </FormControl>
+      <FormControl
         labelText="Password"
         helpText={errors.password?.message ?? undefined}
         error={Boolean(errors.password?.message ?? undefined)}
-        {...register("password", {
-          required: "This field is required",
-          pattern: {
-            value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{4,24}$/,
-            message: "Enter a valid password",
-          },
-        })}
-      />
+      >
+        <Input
+          type="password"
+          {...register("password", {
+            required: "This field is required",
+            pattern: {
+              value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,24}$/,
+              message: "Enter a valid password",
+            },
+          })}
+        />
+      </FormControl>
       <Button size="lg" loading={states.btnLoading}>
         Create
       </Button>

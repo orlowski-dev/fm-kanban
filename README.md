@@ -17,3 +17,4 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 - [mongodb](https://www.npmjs.com/package/mongodb)
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [react-hook-form](https://react-hook-form.com/)
+- [next-auth.js](https://next-auth.js.org/)
