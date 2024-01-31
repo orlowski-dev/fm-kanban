@@ -27,6 +27,18 @@ const config: Config = {
       success: "#2ed573",
     },
     extend: {
+      borderWidth: {
+        1: "1px",
+      },
+      gridTemplateColumns: {
+        "main-wrapper-sm": "56px auto",
+        "main-wrapper-no-sidebar": "201px auto",
+        "main-wrapper-tablet": "260px auto",
+        "main-wrapper-desktop": "300px auto",
+      },
+      height: {
+        "main-wrapper": "calc(100vh - 4.6875rem)",
+      },
       fontSize: {
         hxl: [
           "1.625rem",

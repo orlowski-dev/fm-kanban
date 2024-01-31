@@ -13,7 +13,7 @@ const ThemeToggler = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-w-[15.625rem] px-4 py-2 rounded-md inline-flex items-center justify-center gap-3 bg-light-grey dark:bg-very-dark-grey transition-colors">
+    <div className="min-w-[220px] px-4 py-2 rounded-md inline-flex items-center justify-center gap-3 bg-light-grey dark:bg-very-dark-grey transition-colors">
       <button
         className="text-lg text-medium-grey p-1"
         title="Set light theme"

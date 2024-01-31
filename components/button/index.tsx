@@ -96,7 +96,7 @@ export const IconButton = ({
   return (
     <button
       className={makeClassList([
-        "btn iconic",
+        "btn iconic overflow-hidden",
         variant ?? "primary",
         size ?? "md",
         loading ? "loading" : undefined,
@@ -105,7 +105,9 @@ export const IconButton = ({
       title={title}
       {...other}
     >
-      <span className="absolute -z-10 opacity-0 select-none">{title}</span>
+      <span className="absolute -z-10 w-0 h-0 opacity-0 select-none">
+        {title}
+      </span>
       {loading ? <CgSpinner className="animate-spin" /> : children}
     </button>
   );

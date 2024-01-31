@@ -10,35 +10,35 @@
     @apply px-3 py-1;
   }
   .btn.md {
-    @apply px-6 py-2;
+    @apply px-6 py-3;
   }
   .btn.lg {
-    @apply text-body font-bold px-8 py-2;
+    @apply text-body font-bold px-8 py-3;
   }
 
   .btn.primary {
-    @apply bg-main-purple enabled:hover:bg-main-purple-hover text-white;
+    @apply bg-main-purple enabled:hover:bg-main-purple-hover text-white disabled:opacity-30;
   }
 
   .btn.secondary {
-    @apply bg-secondary-light enabled:hover:bg-secondary-light-hover text-main-purple dark:bg-secodnary-dark dark:hover:bg-secodnary-dark-hover dark:text-white;
+    @apply bg-secondary-light enabled:hover:bg-secondary-light-hover text-main-purple dark:bg-secodnary-dark dark:hover:bg-secodnary-dark-hover dark:text-white disabled:opacity-30;
   }
 
   .btn.destructive {
-    @apply bg-red enabled:hover:bg-red-hover text-white;
+    @apply bg-red enabled:hover:bg-red-hover text-white disabled:opacity-30;
   }
 
   .btn.ghost {
-    @apply text-main-purple enabled:hover:text-main-purple-hover dark:text-main-purple-hover dark:hover:text-main-purple;
+    @apply text-main-purple enabled:hover:text-main-purple-hover dark:text-main-purple-hover dark:hover:text-main-purple disabled:opacity-30;
   }
 
   .btn.iconic.sm {
-    @apply p-2 text-[1.125rem];
+    @apply py-2 px-3 text-[1.125rem];
   }
   .btn.iconic.md {
-    @apply p-3 text-[1.25rem];
+    @apply py-3 px-5 text-[1.25rem];
   }
   .btn.iconic.lg {
-    @apply p-4 text-[1.5rem];
+    @apply py-4 px-6 text-[1.5rem];
   }
 }
