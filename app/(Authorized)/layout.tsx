@@ -2,7 +2,7 @@
 
 import { HiEye } from "react-icons/hi";
 import { IconButton } from "@/components/button";
-import { useState, type ReactNode } from "react";
+import { useState, type ReactNode, Suspense } from "react";
 import Header from "@/components/app-wrapper/Header";
 import Sidebar from "@/components/app-wrapper/Sidebar";
 
@@ -17,7 +17,9 @@ const AuthorizedLayout = ({ children }: Readonly<I_Props>) => {
   };
   return (
     <>
-      <Header isSidebarVisible={sidebarVisible} />
+      <Suspense>
+        <Header isSidebarVisible={sidebarVisible} />
+      </Suspense>
       <div className="main-wrapper">
         <Sidebar
           isSidebarVisible={sidebarVisible}
