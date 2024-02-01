@@ -15,19 +15,22 @@ const AuthorizedLayout = ({ children }: Readonly<I_Props>) => {
   const hideSidebarOnclick = () => {
     setSidebarVisible(false);
   };
+
   return (
     <>
       <Suspense>
         <Header isSidebarVisible={sidebarVisible} />
       </Suspense>
       <div className="main-wrapper">
-        <Sidebar
-          isSidebarVisible={sidebarVisible}
-          onClickFunc={hideSidebarOnclick}
-        />
+        <Suspense>
+          <Sidebar
+            isSidebarVisible={sidebarVisible}
+            onClickFunc={hideSidebarOnclick}
+          />
+        </Suspense>
         <main className="main-wrapper__main">
           {children}
-          <div className="fixed bottom-6 left-0 bg-main-purple rounded-tr-full rounded-br-full">
+          <div className="hidden md:block fixed bottom-6 left-0 bg-main-purple rounded-tr-full rounded-br-full">
             <IconButton
               title="Open sidebar"
               onClick={() => setSidebarVisible(true)}

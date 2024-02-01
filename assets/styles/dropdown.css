@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dropdown {
+    @apply relative;
+  }
+  .dropdown__control {
+    @apply inline-flex items-center gap-3 cursor-pointer;
+  }
+  .dropdown__content {
+    @apply rounded-md shadow-lg border-1 border-light-grey dark:border-lines-dark bg-white dark:bg-dark-grey absolute z-10 w-full mt-4 transition-colors min-w-[240px];
+  }
+  .dropdown__content.left {
+    @apply left-0;
+  }
+  .dropdown__content.right {
+    @apply right-0;
+  }
+
+  .dropdown__content.left.offset {
+    @apply ml-3;
+  }
+  .dropdown__content.right.offset {
+    @apply mr-3;
+  }
+}

@@ -18,9 +18,7 @@ const Sidebar = ({ isSidebarVisible, onClickFunc }: I_Props) => {
         isSidebarVisible ? "visible" : undefined,
       ])}
     >
-      <div className="pr-6">
-        <BoardList />
-      </div>
+      <div className="pr-6">{<BoardList />}</div>
       <div className="grid gap-3 p-4">
         <ThemeToggler />
         <Button startIcon={<HiEyeOff />} variant="ghost" onClick={onClickFunc}>

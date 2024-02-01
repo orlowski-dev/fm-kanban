@@ -36,10 +36,10 @@ const BoardList = () => {
 
   return (
     <div>
-      <h2 className="text-bodysm font-medium md:font-bold uppercase text-medium-grey px-6 lg:px-8 py-5">
+      <h2 className="text-bodysm font-medium md:font-bold uppercase text-medium-grey px-4 md:px-6 lg:px-8 py-4 md:py-5">
         All boards {data ? `(${data.length})` : undefined}
       </h2>
-      <ul>
+      <ul style={{ maxWidth: "none" }}>
         {data
           ? data.map((item) => (
               <li key={item.id}>
