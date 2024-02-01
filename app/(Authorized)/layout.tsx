@@ -8,10 +8,9 @@ import Sidebar from "@/components/app-wrapper/Sidebar";
 
 interface I_Props {
   children: ReactNode;
-  boards: ReactNode;
 }
 
-const AuthorizedLayout = ({ children, boards }: Readonly<I_Props>) => {
+const AuthorizedLayout = ({ children }: Readonly<I_Props>) => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const hideSidebarOnclick = () => {
     setSidebarVisible(false);
@@ -21,7 +20,6 @@ const AuthorizedLayout = ({ children, boards }: Readonly<I_Props>) => {
       <Header isSidebarVisible={sidebarVisible} />
       <div className="main-wrapper">
         <Sidebar
-          boards={boards}
           isSidebarVisible={sidebarVisible}
           onClickFunc={hideSidebarOnclick}
         />

@@ -3,12 +3,14 @@ import { makeClassList } from "@/lib/utils";
 import { HiDotsVertical, HiPlus } from "react-icons/hi";
 import Image from "next/image";
 import "@/assets/styles/app-wrapper.css";
+import { useSearchParams } from "next/navigation";
 
 interface I_Props {
   isSidebarVisible: boolean;
 }
 
 const Header = ({ isSidebarVisible }: I_Props) => {
+  const boardName = useSearchParams().get("name");
   return (
     <header
       className={makeClassList([
@@ -35,7 +37,7 @@ const Header = ({ isSidebarVisible }: I_Props) => {
         />
       </div>
       <div className="header__actions">
-        <p className="text-hlg">Platform lunch</p>
+        <p className="text-hlg">{boardName ?? undefined}</p>
         <div className="flex items-center gap-1">
           <div className="md:hidden">
             <IconButton size="sm" title="Add new task">

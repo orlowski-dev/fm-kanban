@@ -24,11 +24,11 @@
     @apply flex;
   }
   .main-wrapper__main {
-    @apply flex-grow h-main-wrapper overflow-y-auto p-4;
+    @apply flex-grow h-main-wrapper lg:h-main-wrapper-lg  overflow-y-auto p-4;
   }
 
   .sidebar {
-    @apply bg-white dark:bg-dark-grey w-full max-w-0 border-r-1 border-lines-light dark:border-lines-dark relative -translate-x-[100%] transform-gpu flex-shrink-0 flex-grow-0 overflow-x-hidden transition-all flex flex-col justify-between h-main-wrapper -translate-y-[1px] z-20;
+    @apply bg-white dark:bg-dark-grey w-full max-w-0 border-r-1 border-lines-light dark:border-lines-dark relative -translate-x-[100%] transform-gpu flex-shrink-0 flex-grow-0 overflow-x-hidden transition-all flex flex-col justify-between h-main-wrapper lg:h-main-wrapper-lg -translate-y-[1px] z-20;
   }
   .sidebar.visible {
     @apply md:max-w-[260px] lg:max-w-[300px] -translate-x-0;

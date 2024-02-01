@@ -1,18 +1,16 @@
-import { Suspense, type ReactNode } from "react";
 import { Button } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
 import { HiEyeOff } from "react-icons/hi";
 import ThemeToggler from "@/components/theme-toggler";
-import BoardsLoading from "@/app/(Authorized)/@boards/loading";
 import "@/assets/styles/app-wrapper.css";
+import BoardList from "../board-list";
 
 interface I_Props {
   isSidebarVisible: boolean;
   onClickFunc: () => void;
-  boards: ReactNode;
 }
 
-const Sidebar = ({ isSidebarVisible, onClickFunc, boards }: I_Props) => {
+const Sidebar = ({ isSidebarVisible, onClickFunc }: I_Props) => {
   return (
     <section
       className={makeClassList([
@@ -21,7 +19,7 @@ const Sidebar = ({ isSidebarVisible, onClickFunc, boards }: I_Props) => {
       ])}
     >
       <div className="pr-6">
-        <Suspense fallback={<BoardsLoading />}>{boards}</Suspense>
+        <BoardList />
       </div>
       <div className="grid gap-3 p-4">
         <ThemeToggler />

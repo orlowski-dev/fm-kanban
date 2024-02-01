@@ -38,6 +38,7 @@ const config: Config = {
       },
       height: {
         "main-wrapper": "calc(100vh - 4.6875rem)",
+        "main-wrapper-lg": "calc(100vh - 91px)",
       },
       fontSize: {
         hxl: [

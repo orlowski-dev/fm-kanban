@@ -1,23 +1,19 @@
 import { redirect } from "next/navigation";
 
-interface I_Props {
-  searchParams: { board?: string };
-}
+interface I_Props {}
 
 const AppPage = async (props: I_Props) => {
-  // if not search params, get first board
-  if (!props.searchParams.board) {
-    // get first board
-    const board = {
-      id: "123",
-      name: "Platform Lunch",
-      slug: "65b938faa4d416808b20e67a-platform-lunch",
-    };
+  const board = {
+    id: "123",
+    name: "Platform Lunch",
+    slug: "65b938faa4d416808b20e67a-platform-lunch",
+  };
 
-    return redirect("/?board=" + board.slug);
+  if (board) {
+    return redirect(`/board/${board.slug}?name=${board.name}`);
   }
 
-  return <p>Board: {props.searchParams.board}</p>;
+  return <section>No board found</section>;
 };
 
 export default AppPage;
