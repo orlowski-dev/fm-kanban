@@ -35,13 +35,14 @@ const createUserAction = async (
 
     return { status: 201, detail: "User has been created" };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       detail: "Something went wrong. Try again.",
       errorMessage: String(error),
     };
   } finally {
-    client.close();
+    await client.close();
   }
 };
 

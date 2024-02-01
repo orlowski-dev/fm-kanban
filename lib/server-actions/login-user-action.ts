@@ -32,13 +32,14 @@ const loginUserAction = async (
       data: user,
     };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       detail: "Something went wrong. Try again.",
       errorMessage: String(error),
     };
   } finally {
-    client.close();
+    await client.close();
   }
 };
 

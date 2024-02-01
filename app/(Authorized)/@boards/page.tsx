@@ -27,7 +27,7 @@ const getData = async () => {
           },
         ],
       });
-    }, 10000);
+    }, 2000);
   });
 };
 
@@ -37,7 +37,7 @@ interface I_Props {
 
 const BoardsParallel = async (props: I_Props) => {
   const session = await getServerSession(authOptions);
-  const userID = session?.user._id as string;
+  //const userID = session?.user._id as string;
 
   const data = (await getData()) as {
     data: { id: string; name: string; slug: string }[];
