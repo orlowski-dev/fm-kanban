@@ -1,28 +1,26 @@
 "use server";
 
-export const tempGetData = async (): Promise<
-  | {
-      id: string;
-      name: string;
-      slug: string;
-    }[]
-  | null
-> => {
+import { I_BoardModel } from "../models/Board";
+
+export const tempGetData = async (): Promise<I_BoardModel[] | null> => {
   return await new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         {
-          id: "123",
+          _id: "b1",
+          author: "65b938faa4d416808b20e67a",
           name: "Platform Lunch",
           slug: "65b938faa4d416808b20e67a-platform-lunch",
         },
         {
-          id: "456",
+          _id: "b2",
+          author: "65b938faa4d416808b20e67a",
           name: "Marketing Plan",
           slug: "65b938faa4d416808b20e67a-markering-plan",
         },
         {
-          id: "567",
+          _id: "b3",
+          author: "65b938faa4d416808b20e67a",
           name: "Roadmap",
           slug: "65b938faa4d416808b20e67a-roadmap",
         },

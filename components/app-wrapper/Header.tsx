@@ -1,20 +1,23 @@
 import { Button, IconButton } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
 import { HiDotsVertical, HiPlus } from "react-icons/hi";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { I_BoardModel } from "@/lib/models/Board";
 import Image from "next/image";
 import Dropdown from "../dropdown";
 import ThemeToggler from "../theme-toggler";
+import LogoutButton from "./LogoutButton";
 import BoardList from "../board-list";
 import "@/assets/styles/app-wrapper.css";
-import LogoutButton from "./LogoutButton";
 
 interface I_Props {
   isSidebarVisible: boolean;
+  boardListData: I_BoardModel[] | null | undefined;
 }
 
-const Header = ({ isSidebarVisible }: I_Props) => {
-  const boardName = useSearchParams().get("name");
+const Header = ({ isSidebarVisible, boardListData }: I_Props) => {
+  const params = useParams();
+  const currentBoard = boardListData?.find((item) => item._id === params.id);
 
   return (
     <header
@@ -43,20 +46,20 @@ const Header = ({ isSidebarVisible }: I_Props) => {
       </div>
       <div className="header__actions">
         <p className="text-hlg hidden md:block translate-y-[2px]">
-          {boardName ?? undefined}
+          {currentBoard?.name ?? undefined}
         </p>
         <div className="md:hidden">
           <Dropdown
             controlElement={
               <span className="text-hlg translate-y-[2px]">
-                <span>{boardName ?? undefined}</span>
+                <span>{currentBoard?.name ?? undefined}</span>
               </span>
             }
             showIndicator
           >
             <>
               <div className="pr-4">
-                <BoardList />
+                <BoardList data={boardListData} />
               </div>
               <div className="p-4">
                 <ThemeToggler />
@@ -69,13 +72,16 @@ const Header = ({ isSidebarVisible }: I_Props) => {
             <IconButton
               size="sm"
               title="Add new task"
-              disabled={!boardName ?? undefined}
+              disabled={!currentBoard ?? undefined}
             >
               <HiPlus />
             </IconButton>
           </div>
           <div className="hidden md:block">
-            <Button startIcon={<HiPlus />} disabled={!boardName ?? undefined}>
+            <Button
+              startIcon={<HiPlus />}
+              disabled={!currentBoard ?? undefined}
+            >
               Add new task
             </Button>
           </div>

@@ -1,34 +1,14 @@
+import type { I_BoardModel } from "@/lib/models/Board";
 import { makeClassList } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import { HiPlus } from "react-icons/hi";
 import { TbLayoutBoardSplit } from "react-icons/tb";
-import { tempGetData } from "@/lib/server-actions/temp-get-board-list";
 import { useParams } from "next/navigation";
 import BoardsLoading from "./loading";
 import Link from "next/link";
 
-const BoardList = () => {
-  // temp
-  const [data, setData] = useState<
-    | undefined
-    | null
-    | {
-        id: string;
-        name: string;
-        slug: string;
-      }[]
-  >(undefined);
-  // --
-
+const BoardList = ({ data }: { data: I_BoardModel[] | undefined | null }) => {
   const params = useParams();
-  const slug = params.slug as string;
-
-  useEffect(() => {
-    const getData = async () => {
-      return await tempGetData();
-    };
-    getData().then((data) => setData(data));
-  }, []);
+  const id = params.id as string;
 
   if (data === undefined) {
     return <BoardsLoading />;
@@ -42,12 +22,12 @@ const BoardList = () => {
       <ul style={{ maxWidth: "none" }}>
         {data
           ? data.map((item) => (
-              <li key={item.id}>
+              <li key={item._id}>
                 <Link
-                  href={`/board/${item.slug}?name=${item.name}`}
+                  href={`/board/${item._id}`}
                   className={makeClassList([
                     "sidebar__boardlink",
-                    slug === item.slug ? "active" : undefined,
+                    id === item._id ? "active" : undefined,
                   ])}
                 >
                   <TbLayoutBoardSplit className="text-[1.125rem]" />
