@@ -35,7 +35,7 @@
   }
 
   .sidebar__boardlink {
-    @apply px-4 md:px-6 py-3 lg:px-8 text-bodysm text-medium-grey flex items-center gap-3 rounded-tr-full rounded-br-full hover:bg-main-purple-hover hover:text-white transition-colors;
+    @apply px-4 md:px-6 py-3 lg:px-8 text-bodysm text-medium-grey flex items-center gap-3 rounded-tr-full rounded-br-full hover:bg-main-purple-hover hover:text-white transition-colors select-none;
   }
   .sidebar__boardlink.active {
     @apply bg-main-purple text-white hover:bg-main-purple;

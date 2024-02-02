@@ -123,7 +123,7 @@ const Dropdown = ({
           offset ? "offset" : undefined,
         ])}
       >
-        {children}
+        <div onClick={() => setIsOpen(false)}>{children}</div>
       </motion.div>
     </div>
   );

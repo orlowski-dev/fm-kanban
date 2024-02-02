@@ -40,6 +40,9 @@ const config: Config = {
         "main-wrapper": "calc(100vh - 4.6875rem)",
         "main-wrapper-lg": "calc(100vh - 91px)",
       },
+      maxHeight: {
+        modal: "calc(100vh - 1.5rem)",
+      },
       fontSize: {
         hxl: [
           "1.625rem",

@@ -6,11 +6,14 @@ import { HiChevronDown } from "react-icons/hi";
 import "@/assets/styles/input.css";
 import "@/assets/styles/select.css";
 
-export type T_SelectOption = string;
+export interface I_SelectOption {
+  key: string;
+  value: string;
+}
 
 export interface I_SelectProps extends InputHTMLAttributes<HTMLInputElement> {
-  options: T_SelectOption[];
-  defaultSelected?: number;
+  options: I_SelectOption[];
+  defaultSelected?: string;
 }
 
 const variants = {
@@ -32,13 +35,14 @@ const Select = forwardRef(function Select(
   { options, defaultSelected, ...other }: I_SelectProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-  if (defaultSelected && defaultSelected > options.length) {
-    throw new Error(
-      "Value of defaultSelected cannot be greater than option array length!"
-    );
+  if (
+    defaultSelected &&
+    !options.find((elem) => elem.key !== defaultSelected)
+  ) {
+    throw new Error("The defaultFawrard key is not included in the options!");
   }
 
-  const [inpValue, setInpValue] = useState(defaultSelected ?? options[0]);
+  const [inpValue, setInpValue] = useState(defaultSelected ?? options[0].key);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const optionsRef = useRef<HTMLUListElement>(null);
 
@@ -67,7 +71,7 @@ const Select = forwardRef(function Select(
         className="select__input input"
         onClick={() => setOptionsVisible((prev) => !prev)}
       >
-        <span>{inpValue}</span>
+        <span>{options.find((option) => option.key === inpValue)?.value}</span>
         <HiChevronDown
           className={`text-main-purple dark:text-white transition-transform ${
             optionsVisible ? "rotate-180" : "rotate-0"
@@ -87,11 +91,11 @@ const Select = forwardRef(function Select(
             key={index}
             className="select__option"
             onClick={() => {
-              setInpValue(option);
+              setInpValue(option.key);
               setOptionsVisible(false);
             }}
           >
-            {option}
+            {option.value}
           </li>
         ))}
       </motion.ul>

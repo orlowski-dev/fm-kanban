@@ -9,25 +9,30 @@ const columns = [
     name: "Todo",
     tasks: [
       {
+        _id: "t1",
         title: "Build UI for onboarding flow",
         description: "",
         status: "Todo",
         subtasks: [
           {
+            _id: "s1",
             title: "Sign up page",
             isCompleted: true,
           },
           {
+            _id: "s2",
             title: "Sign in page",
             isCompleted: false,
           },
           {
+            _id: "s3",
             title: "Welcome page",
             isCompleted: false,
           },
         ],
       },
       {
+        _id: "t2",
         title: "Build UI for search",
         description: "",
         status: "Todo",
@@ -39,6 +44,7 @@ const columns = [
         ],
       },
       {
+        _id: "t3",
         title: "Build settings UI",
         description: "",
         status: "Todo",
@@ -54,6 +60,7 @@ const columns = [
         ],
       },
       {
+        _id: "t4",
         title: "QA and test all major user journeys",
         description:
           "Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.",
@@ -77,6 +84,7 @@ const columns = [
     name: "Doing",
     tasks: [
       {
+        _id: "t5",
         title: "Design settings and search pages",
         description: "",
         status: "Doing",
@@ -96,6 +104,7 @@ const columns = [
         ],
       },
       {
+        _id: "t6",
         title: "Add account management endpoints",
         description: "",
         status: "Doing",
@@ -115,6 +124,7 @@ const columns = [
         ],
       },
       {
+        _id: "t7",
         title: "Design onboarding flow",
         description: "",
         status: "Doing",
@@ -134,6 +144,7 @@ const columns = [
         ],
       },
       {
+        _id: "t8",
         title: "Add search enpoints",
         description: "",
         status: "Doing",
@@ -149,6 +160,7 @@ const columns = [
         ],
       },
       {
+        _id: "t9",
         title: "Add authentication endpoints",
         description: "",
         status: "Doing",
@@ -164,6 +176,7 @@ const columns = [
         ],
       },
       {
+        _id: "t10",
         title:
           "Research pricing points of various competitors and trial different business models",
         description:
@@ -193,6 +206,7 @@ const columns = [
     name: "Done",
     tasks: [
       {
+        _id: "t11",
         title: "Conduct 5 wireframe tests",
         description:
           "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
@@ -205,6 +219,7 @@ const columns = [
         ],
       },
       {
+        _id: "t12",
         title: "Create wireframe prototype",
         description:
           "Create a greyscale clickable wireframe prototype to test our asssumptions so far.",
@@ -217,6 +232,7 @@ const columns = [
         ],
       },
       {
+        _id: "t13",
         title: "Review results of usability tests and iterate",
         description:
           "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
@@ -237,6 +253,7 @@ const columns = [
         ],
       },
       {
+        _id: "t14",
         title:
           "Create paper prototypes and conduct 10 usability tests with potential customers",
         description: "",
@@ -253,6 +270,7 @@ const columns = [
         ],
       },
       {
+        _id: "t15",
         title: "Market discovery",
         description:
           "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.",
@@ -265,6 +283,7 @@ const columns = [
         ],
       },
       {
+        _id: "t16",
         title: "Competitor analysis",
         description: "",
         status: "Done",
@@ -280,6 +299,7 @@ const columns = [
         ],
       },
       {
+        _id: "t17",
         title: "Research the market",
         description:
           "We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.",
@@ -303,6 +323,7 @@ const columns = [
     name: "Todo",
     tasks: [
       {
+        _id: "t18",
         title: "Plan Product Hunt launch",
         description: "",
         status: "Todo",
@@ -334,6 +355,7 @@ const columns = [
         ],
       },
       {
+        _id: "t19",
         title: "Share on Show HN",
         description: "",
         status: "",
@@ -353,6 +375,7 @@ const columns = [
         ],
       },
       {
+        _id: "t20",
         title: "Write launch article to publish on multiple channels",
         description: "",
         status: "",
@@ -395,6 +418,7 @@ const columns = [
     name: "Now",
     tasks: [
       {
+        _id: "t21",
         title: "Launch version one",
         description: "",
         status: "",
@@ -410,6 +434,7 @@ const columns = [
         ],
       },
       {
+        _id: "t22",
         title: "Review early feedback and plan next steps for roadmap",
         description:
           "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",

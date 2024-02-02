@@ -1,4 +1,4 @@
-import ColumnLoading from "@/components/task-cards/loading";
+import ColumnLoading from "@/components/board/task-cards/loading";
 
 const Loading = () => {
   return <ColumnLoading />;

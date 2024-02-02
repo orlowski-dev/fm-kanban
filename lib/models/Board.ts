@@ -6,11 +6,13 @@ export interface I_BoardModel {
 }
 
 export interface I_ColumnSubtask {
+  _id?: string;
   title: string;
   isCompleted: boolean;
 }
 
 export interface I_ColumnTask {
+  _id: string;
   title: string;
   description?: string;
   status: string;

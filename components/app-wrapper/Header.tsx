@@ -46,13 +46,19 @@ const Header = ({ isSidebarVisible, boardListData }: I_Props) => {
       </div>
       <div className="header__actions">
         <p className="text-hlg hidden md:block translate-y-[2px]">
-          {currentBoard?.name ?? undefined}
+          {currentBoard?.name ?? (
+            <span className="block animate-pulse w-12 h-6 rounded-md bg-lines-light dark:bg-lines-dark transition-colors"></span>
+          )}
         </p>
         <div className="md:hidden">
           <Dropdown
             controlElement={
               <span className="text-hlg translate-y-[2px]">
-                <span>{currentBoard?.name ?? undefined}</span>
+                <span>
+                  {currentBoard?.name ?? (
+                    <span className="block animate-pulse w-12 h-6 rounded-md bg-lines-light dark:bg-lines-dark transition-colors"></span>
+                  )}
+                </span>
               </span>
             }
             showIndicator

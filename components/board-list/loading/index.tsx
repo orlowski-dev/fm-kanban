@@ -5,16 +5,16 @@ export default function BoardsLoading() {
         All boards
       </h2>
       <div className="px-6 py-3 lg:px-8 text-bodysm text-medium-grey flex items-center gap-3 transition-colors;">
-        <div className="w-[1.125rem] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
-        <div className="w-[100px] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
+        <div className="w-[1.125rem] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
+        <div className="w-[100px] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
       </div>
       <div className="px-6 py-3 lg:px-8 text-bodysm text-medium-grey flex items-center gap-3 transition-colors;">
-        <div className="w-[1.125rem] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
-        <div className="w-[100px] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
+        <div className="w-[1.125rem] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
+        <div className="w-[100px] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
       </div>
       <div className="px-6 py-3 lg:px-8 text-bodysm text-medium-grey flex items-center gap-3 transition-colors;">
-        <div className="w-[1.125rem] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
-        <div className="w-[100px] h-[1.125rem] bg-medium-grey animate-pulse rounded-md"></div>
+        <div className="w-[1.125rem] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
+        <div className="w-[100px] h-[1.125rem] bg-lines-light dark:bg-lines-dark animate-pulse rounded-md"></div>
       </div>
     </div>
   );

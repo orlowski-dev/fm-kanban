@@ -10,7 +10,7 @@ export interface I_CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Checkbox = forwardRef(function Checkbox(
-  { label, defaultChecked, ...other }: I_CheckboxProps,
+  { label, defaultChecked, onChange, ...other }: I_CheckboxProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const [checkedState, setCheckedState] = useState(defaultChecked ?? false);
@@ -26,7 +26,10 @@ const Checkbox = forwardRef(function Checkbox(
         type="checkbox"
         ref={ref}
         defaultChecked={defaultChecked}
-        onChange={(e) => setCheckedState(e.target.checked)}
+        onChange={(e) => {
+          setCheckedState(e.target.checked);
+          onChange && onChange(e);
+        }}
       />
       <div className="checkbox__box">
         <HiCheck
