@@ -1,16 +1,18 @@
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getOne } from "@/lib/server-actions/simple-actions";
+import { I_BoardModel } from "@/lib/models/Board";
+import authOptions from "../api/auth/[...nextauth]/options";
 
-interface I_Props {}
+const AppPage = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) return;
 
-const AppPage = async (props: I_Props) => {
-  const board = {
-    id: "b1",
-    name: "Platform Lunch",
-    slug: "65b938faa4d416808b20e67a-platform-lunch",
-  };
+  const res = await getOne("boards", { author: session.user._id });
+  const boards = res.data as I_BoardModel | null;
 
-  if (board) {
-    return redirect(`/board/${board.id}`);
+  if (boards) {
+    return redirect(`/board/${boards._id}`);
   }
 
   return <section>No board found</section>;

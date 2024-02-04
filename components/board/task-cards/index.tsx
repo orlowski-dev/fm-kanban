@@ -1,11 +1,11 @@
 "use client";
 
-import type { I_ColumnTask } from "@/lib/models/Board";
+import { I_Task } from "@/lib/models/Task";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
 
 interface I_Props {
-  tasks: I_ColumnTask[];
+  tasks: I_Task[];
   onTaskClick: (taskID: string) => void;
 }
 const parentVariant: Variants = {

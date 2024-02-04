@@ -4,7 +4,8 @@ import type { I_BoardModel } from "@/lib/models/Board";
 import { HiEye } from "react-icons/hi";
 import { IconButton } from "@/components/button";
 import { useState, type ReactNode, Suspense, useEffect } from "react";
-import { tempGetData } from "@/lib/server-actions/temp-get-board-list";
+import { getData } from "@/lib/server-actions/simple-actions";
+import { getSession } from "next-auth/react";
 import Header from "@/components/app-wrapper/Header";
 import Sidebar from "@/components/app-wrapper/Sidebar";
 
@@ -22,7 +23,20 @@ const AuthorizedLayout = ({ children }: Readonly<I_Props>) => {
   );
 
   useEffect(() => {
-    tempGetData().then((data) => setBoardList(data));
+    const getBoards = async () => {
+      const session = await getSession();
+      const uid = session?.user._id as string;
+
+      if (uid) {
+        const res = await getData("boards", { author: uid });
+        if (res.data) {
+          return res.data as I_BoardModel[];
+        } else {
+          return null;
+        }
+      }
+    };
+    getBoards().then((data) => setBoardList(data));
   }, []);
 
   return (

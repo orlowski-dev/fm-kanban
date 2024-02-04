@@ -1,13 +1,10 @@
 "use client";
 
-import type {
-  I_BoardColumnModel,
-  I_ColumnSubtask,
-  I_ColumnTask,
-} from "@/lib/models/Board";
 import { Button, IconButton } from "@/components/button";
 import { HiDotsVertical } from "react-icons/hi";
 import { HiTrash } from "react-icons/hi";
+import { I_Task } from "@/lib/models/Task";
+import { I_Column } from "@/lib/models/Column";
 import Dropdown from "@/components/dropdown";
 import Checkbox from "@/components/checkbox";
 import Select from "@/components/select";
@@ -15,9 +12,9 @@ import Modal from "@/components/modal";
 import { useState } from "react";
 
 export interface I_TaskDetailModalProps {
-  task: I_ColumnTask;
-  columns?: I_BoardColumnModel[];
-  currentColumn?: string;
+  task?: I_Task;
+  columns: I_Column[];
+  currentColumn: string;
   onClose: () => void;
   callback?: () => void;
 }
@@ -31,6 +28,10 @@ const TaskDetailModal = ({
 }: I_TaskDetailModalProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
+  if (!task) {
+    return <p>Unable to load task detail.</p>;
+  }
+
   const subtasks = task.subtasks;
   const subtasksLength = subtasks?.length;
 
@@ -39,7 +40,7 @@ const TaskDetailModal = ({
     setTimeout(onClose, 101);
   };
 
-  const onSubtaskChange = (subtask: I_ColumnSubtask, isChecked: boolean) => {};
+  const onSubtaskChange = () => {};
 
   return (
     <Modal isOpen={isOpen}>
@@ -86,21 +87,19 @@ const TaskDetailModal = ({
                     key={index}
                     label={subtask.title}
                     defaultChecked={subtask.isCompleted}
-                    onChange={(e) => onSubtaskChange(subtask, e.target.checked)}
+                    onChange={(e) => {}}
                   />
                 ))}
               </div>
-              {columns && (
-                <div className="mt-6">
-                  <Select
-                    defaultSelected={currentColumn}
-                    options={columns.map((column) => ({
-                      key: column._id,
-                      value: column.name,
-                    }))}
-                  />
-                </div>
-              )}
+              <div className="mt-6">
+                <Select
+                  defaultSelected={currentColumn}
+                  options={columns.map((column) => ({
+                    key: column._id,
+                    value: column.name,
+                  }))}
+                />
+              </div>
               <div className="mt-6 flex items-center justify-end gap-3">
                 <span
                   role="button"

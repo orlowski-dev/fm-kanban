@@ -39,7 +39,7 @@ const RegisterForm = () => {
     if (result.status !== 201) {
       dispach({
         name: "setError",
-        payload: { formErrorMessage: result.detail },
+        payload: { formErrorMessage: result.detail ?? "Unknown error." },
       });
       return;
     }

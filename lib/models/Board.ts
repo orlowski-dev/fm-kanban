@@ -1,3 +1,6 @@
+import { I_Column } from "./Column";
+import { I_Task } from "./Task";
+
 export interface I_BoardModel {
   _id: string;
   name: string;
@@ -5,23 +8,6 @@ export interface I_BoardModel {
   slug: string;
 }
 
-export interface I_ColumnSubtask {
-  _id?: string;
-  title: string;
-  isCompleted: boolean;
-}
-
-export interface I_ColumnTask {
-  _id: string;
-  title: string;
-  description?: string;
-  status: string;
-  subtasks?: I_ColumnSubtask[];
-}
-
-export interface I_BoardColumnModel {
-  _id: string;
-  board: string;
-  name: string;
-  tasks: I_ColumnTask[];
+export interface I_ColumnAndTasksMerged extends I_Column {
+  tasks: I_Task[];
 }
