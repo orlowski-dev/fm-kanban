@@ -51,3 +51,32 @@ export const getOne = async (
     await client.close();
   }
 };
+
+export const saveData = async (
+  collName: string,
+  docs: Object[],
+  options?: Object
+): Promise<I_ServerActionResponse> => {
+  const { client, db } = await getClient();
+  try {
+    const coll = db.collection(collName);
+    const result = await coll.insertMany(docs, options);
+
+    if (!result.acknowledged || !result.insertedIds) {
+      return { status: 500, detail: "Unable to save data. Try again." };
+    }
+
+    return {
+      status: 201,
+      data: { insertedIds: JSON.parse(JSON.stringify(result.insertedIds)) },
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      detail: "Unable to save data. Try again.",
+      errorMessage: String(error),
+    };
+  } finally {
+    await client.close();
+  }
+};

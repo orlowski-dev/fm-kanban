@@ -6,7 +6,12 @@ import { useParams } from "next/navigation";
 import BoardsLoading from "./loading";
 import Link from "next/link";
 
-const BoardList = ({ data }: { data: I_BoardModel[] | undefined | null }) => {
+export interface I_BoardListProps {
+  data: I_BoardModel[] | undefined | null;
+  createNewOnClick: (modal: string) => void;
+}
+
+const BoardList = ({ data, createNewOnClick }: I_BoardListProps) => {
   const params = useParams();
   const id = params.id as string;
 
@@ -37,13 +42,16 @@ const BoardList = ({ data }: { data: I_BoardModel[] | undefined | null }) => {
             ))
           : undefined}
         <li>
-          <Link href="/" className="sidebar__boardlink new">
+          <button
+            onClick={() => createNewOnClick("create-board")}
+            className="sidebar__boardlink new"
+          >
             <TbLayoutBoardSplit className="text-[1.125rem]" />
             <span className="flex items-center gap-2">
               <HiPlus />
               Create New Board
             </span>
-          </Link>
+          </button>
         </li>
       </ul>
     </div>

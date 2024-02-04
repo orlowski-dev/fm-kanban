@@ -26,10 +26,6 @@ const BoardPage = async (props: I_Props) => {
 
   const res = await getColumnsAndTasks(props.params.id);
 
-  if (!res.data) {
-    return <section>No columns found.</section>;
-  }
-
   return (
     <Suspense fallback={<ColumnLoading />}>
       <Board {...res.data} />

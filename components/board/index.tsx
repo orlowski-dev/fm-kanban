@@ -7,9 +7,10 @@ import { I_Task } from "@/lib/models/Task";
 import { I_ColumnAndTasksMerged } from "@/lib/models/Board";
 import TaskCards from "./task-cards";
 import TaskDetailModal from "./modals/TaskDetailModal";
+import EmptyBoardPage from "./EmptyBoardPage";
 
 interface I_Props {
-  columns: I_Column[] | null;
+  columns?: I_Column[] | null;
   tasks?: I_Task[];
 }
 
@@ -17,7 +18,7 @@ const Board = ({ columns, tasks }: I_Props) => {
   const [modal, setModal] = useState<null | ReactNode>(null);
 
   if (!columns) {
-    return <section>No columns found.</section>;
+    return <EmptyBoardPage />;
   }
 
   // merge columns and tasks

@@ -13,9 +13,14 @@ import "@/assets/styles/app-wrapper.css";
 interface I_Props {
   isSidebarVisible: boolean;
   boardListData: I_BoardModel[] | null | undefined;
+  onNewBoardClickFunc: (modal: string) => void;
 }
 
-const Header = ({ isSidebarVisible, boardListData }: I_Props) => {
+const Header = ({
+  isSidebarVisible,
+  boardListData,
+  onNewBoardClickFunc,
+}: I_Props) => {
   const params = useParams();
   const currentBoard = boardListData?.find((item) => item._id === params.id);
 
@@ -65,7 +70,10 @@ const Header = ({ isSidebarVisible, boardListData }: I_Props) => {
           >
             <>
               <div className="pr-4">
-                <BoardList data={boardListData} />
+                <BoardList
+                  data={boardListData}
+                  createNewOnClick={onNewBoardClickFunc}
+                />
               </div>
               <div className="p-4">
                 <ThemeToggler />
