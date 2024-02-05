@@ -7,7 +7,3 @@ export interface I_BoardModel {
   author: string;
   slug: string;
 }
-
-export interface I_ColumnAndTasksMerged extends I_Column {
-  tasks: I_Task[];
-}

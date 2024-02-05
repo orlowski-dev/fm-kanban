@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply relative text-bodysm transition-colors rounded-full inline-flex justify-center items-center gap-2;
+    @apply relative text-bodysm transition-colors rounded-full inline-flex justify-center items-center gap-2 select-none;
   }
   .btn.sm {
     @apply px-3 py-2;

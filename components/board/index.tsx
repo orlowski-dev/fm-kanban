@@ -1,13 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useState } from "react";
 import { I_Column } from "@/lib/models/Column";
 import { I_Task } from "@/lib/models/Task";
-import { I_ColumnAndTasksMerged } from "@/lib/models/Board";
+import { useContext, useEffect } from "react";
+import { MainContext } from "@/lib/contexts/context";
 import TaskCards from "./task-cards";
-import TaskDetailModal from "./modals/TaskDetailModal";
 import EmptyBoardPage from "./EmptyBoardPage";
+import { useParams } from "next/navigation";
 
 interface I_Props {
   columns?: I_Column[] | null;
@@ -15,24 +14,38 @@ interface I_Props {
 }
 
 const Board = ({ columns, tasks }: I_Props) => {
-  const [modal, setModal] = useState<null | ReactNode>(null);
+  const params = useParams();
+  const context = useContext(MainContext);
 
-  if (!columns) {
+  useEffect(() => {
+    if (!context || context.states.currentBoardId === params.id) return;
+
+    context.dispatch({ type: "setCurrentBoard", payload: params.id as string });
+  }, [context, params.id]);
+
+  useEffect(() => {
+    if (
+      !context ||
+      context.states.tasks === tasks ||
+      context.states.tasks === tasks
+    )
+      return;
+
+    context.dispatch({
+      type: "setColumnsAndTasks",
+      payload: { columns, tasks },
+    });
+  }, [context, tasks, columns]);
+
+  if (!context) return;
+
+  const { states, dispatch } = context;
+
+  if (!states.columns) {
     return <EmptyBoardPage />;
   }
 
-  // merge columns and tasks
-  const merged: I_ColumnAndTasksMerged[] = columns.map((column) => ({
-    ...column,
-    tasks:
-      tasks?.filter((task) => task.column === column._id) ?? ([] as I_Task[]),
-  }));
-
-  const columnsLength = columns.length;
-
-  const addModal = (modal: ReactNode) => {
-    setModal(modal);
-  };
+  const columnsLength = states.columns.length;
 
   return (
     <section>
@@ -43,30 +56,25 @@ const Board = ({ columns, tasks }: I_Props) => {
           width: `calc(17.5rem * ${columnsLength} + 1.5rem * ${columnsLength})`,
         }}
       >
-        {merged.map((column) => (
-          <li key={column._id}>
-            <p className="text-bodysm text-medium-grey tracking-wide uppercase mb-4">
-              {column.name} ({column?.tasks?.length ?? 0})
-            </p>
-            {column?.tasks && column?.tasks.length > 0 ? (
-              <TaskCards
-                tasks={column.tasks}
-                onTaskClick={(taskID) =>
-                  addModal(
-                    <TaskDetailModal
-                      onClose={() => setModal(null)}
-                      task={column.tasks.find((task) => task._id === taskID)}
-                      columns={merged}
-                      currentColumn={column._id}
-                    />
-                  )
-                }
-              />
-            ) : undefined}
-          </li>
-        ))}
+        {states.columns.map((column) => {
+          const tasks = states.tasks?.filter(
+            (task) => task.column === column._id
+          );
+
+          return (
+            <li key={column._id}>
+              <p className="text-bodysm text-medium-grey tracking-wide uppercase mb-4">
+                {column.name} ({tasks?.length ?? 0})
+              </p>
+              {tasks && tasks.length > 0 ? (
+                <ul>
+                  <TaskCards tasks={tasks} />
+                </ul>
+              ) : null}
+            </li>
+          );
+        })}
       </ul>
-      {modal}
     </section>
   );
 };

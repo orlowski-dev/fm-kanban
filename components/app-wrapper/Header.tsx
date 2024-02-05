@@ -1,8 +1,11 @@
+"use client";
+
 import { Button, IconButton } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
 import { HiDotsVertical, HiPlus } from "react-icons/hi";
 import { useParams } from "next/navigation";
-import { I_BoardModel } from "@/lib/models/Board";
+import { useContext } from "react";
+import { MainContext } from "@/lib/contexts/context";
 import Image from "next/image";
 import Dropdown from "../dropdown";
 import ThemeToggler from "../theme-toggler";
@@ -12,17 +15,18 @@ import "@/assets/styles/app-wrapper.css";
 
 interface I_Props {
   isSidebarVisible: boolean;
-  boardListData: I_BoardModel[] | null | undefined;
-  onNewBoardClickFunc: (modal: string) => void;
 }
 
-const Header = ({
-  isSidebarVisible,
-  boardListData,
-  onNewBoardClickFunc,
-}: I_Props) => {
-  const params = useParams();
-  const currentBoard = boardListData?.find((item) => item._id === params.id);
+const Header = ({ isSidebarVisible }: I_Props) => {
+  const context = useContext(MainContext);
+
+  if (!context) return;
+
+  const { states, dispatch } = context;
+  const columsExists = states.columns && states.columns.length > 0;
+  const currentBoard = states.boards?.find(
+    (board) => board._id === states.currentBoardId
+  );
 
   return (
     <header
@@ -70,10 +74,7 @@ const Header = ({
           >
             <>
               <div className="pr-4">
-                <BoardList
-                  data={boardListData}
-                  createNewOnClick={onNewBoardClickFunc}
-                />
+                <BoardList data={states.boards} />
               </div>
               <div className="p-4">
                 <ThemeToggler />
@@ -86,7 +87,7 @@ const Header = ({
             <IconButton
               size="sm"
               title="Add new task"
-              disabled={!currentBoard ?? undefined}
+              disabled={!columsExists ?? undefined}
             >
               <HiPlus />
             </IconButton>
@@ -94,7 +95,7 @@ const Header = ({
           <div className="hidden md:block">
             <Button
               startIcon={<HiPlus />}
-              disabled={!currentBoard ?? undefined}
+              disabled={!columsExists ?? undefined}
             >
               Add new task
             </Button>

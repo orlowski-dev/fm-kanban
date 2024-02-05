@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 
 interface I_Props {
   tasks: I_Task[];
-  onTaskClick: (taskID: string) => void;
 }
 const parentVariant: Variants = {
   initial: { opacity: 0 },
@@ -18,7 +17,7 @@ const childrenVariant: Variants = {
   animate: { opacity: 1 },
 };
 
-const TaskCards = ({ tasks, onTaskClick }: I_Props) => {
+const TaskCards = ({ tasks }: I_Props) => {
   return (
     <motion.ul
       className="grid gap-3"
@@ -30,7 +29,6 @@ const TaskCards = ({ tasks, onTaskClick }: I_Props) => {
         <motion.li
           key={task._id}
           variants={childrenVariant}
-          onClick={() => onTaskClick(task._id)}
           className="block px-4 py-6 rounded-md bg-white dark:bg-dark-grey transition-colors shadow-lg cursor-pointer"
         >
           <p className="text-hmd mb-2">{task.title}</p>

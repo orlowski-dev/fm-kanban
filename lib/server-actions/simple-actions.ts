@@ -18,7 +18,10 @@ export const getData = async (
       data.push(doc);
     }
 
-    return { status: 200, data: JSON.parse(JSON.stringify(data)) };
+    return {
+      status: 200,
+      data: data.length === 0 ? null : JSON.parse(JSON.stringify(data)),
+    };
   } catch (error) {
     return {
       status: 500,

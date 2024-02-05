@@ -8,10 +8,9 @@ import Link from "next/link";
 
 export interface I_BoardListProps {
   data: I_BoardModel[] | undefined | null;
-  createNewOnClick: (modal: string) => void;
 }
 
-const BoardList = ({ data, createNewOnClick }: I_BoardListProps) => {
+const BoardList = ({ data }: I_BoardListProps) => {
   const params = useParams();
   const id = params.id as string;
 
@@ -43,7 +42,7 @@ const BoardList = ({ data, createNewOnClick }: I_BoardListProps) => {
           : undefined}
         <li>
           <button
-            onClick={() => createNewOnClick("create-board")}
+            // onClick={() => createNewOnClick("create-board")}
             className="sidebar__boardlink new"
           >
             <TbLayoutBoardSplit className="text-[1.125rem]" />

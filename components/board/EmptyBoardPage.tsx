@@ -3,10 +3,8 @@
 import { Button } from "../button";
 import { HiPlus } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { ReactNode, useState } from "react";
 
 const EmptyBoardPage = () => {
-  const [modal, setModal] = useState<ReactNode | null>(null);
   return (
     <motion.section
       initial={{ opacity: 0 }}
