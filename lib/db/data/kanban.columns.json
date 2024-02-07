@@ -1,0 +1,63 @@
+[{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0cb"
+  },
+  "name": "Todo",
+  "board": "65be9cdeba0feb4ccd4be0c6"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0cc"
+  },
+  "name": "Doing",
+  "board": "65be9cdeba0feb4ccd4be0c6"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0cd"
+  },
+  "name": "Done",
+  "board": "65be9cdeba0feb4ccd4be0c6"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0ce"
+  },
+  "name": "Todo",
+  "board": "65be9cdeba0feb4ccd4be0c7"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0cf"
+  },
+  "name": "Doing",
+  "board": "65be9cdeba0feb4ccd4be0c7"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0d0"
+  },
+  "name": "Done",
+  "board": "65be9cdeba0feb4ccd4be0c7"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0d1"
+  },
+  "name": "Now",
+  "board": "65be9cdeba0feb4ccd4be0c8"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0d2"
+  },
+  "name": "Next",
+  "board": "65be9cdeba0feb4ccd4be0c8"
+},
+{
+  "_id": {
+    "$oid": "65be9d7eba0feb4ccd4be0d3"
+  },
+  "name": "Later",
+  "board": "65be9cdeba0feb4ccd4be0c8"
+}]

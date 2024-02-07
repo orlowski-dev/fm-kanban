@@ -13,6 +13,10 @@ interface I_Props {
 }
 
 const BoardPage = async (props: I_Props) => {
+  // check if id is hex string
+  if (!RegExp(/^[0-9a-fA-F]{24}$/).test(props.params.id)) {
+    return redirect("/");
+  }
   const session = await getServerSession(authOptions);
   // check if its user's board
   const boardFound = await getOne("boards", {
@@ -25,6 +29,8 @@ const BoardPage = async (props: I_Props) => {
   }
 
   const res = await getColumnsAndTasks(props.params.id);
+
+  console.log(res.data?.tasks);
 
   return (
     <Suspense fallback={<ColumnLoading />}>

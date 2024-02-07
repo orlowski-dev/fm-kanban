@@ -59,7 +59,11 @@ export const saveData = async (
   collName: string,
   docs: Object[],
   options?: Object
-): Promise<I_ServerActionResponse> => {
+): Promise<
+  Omit<I_ServerActionResponse, "data"> & {
+    data?: { insertedIds: { [key: number]: string } };
+  }
+> => {
   const { client, db } = await getClient();
   try {
     const coll = db.collection(collName);

@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "65be9b4b9717294a7ee997ac"
+  },
+  "name": "Test User",
+  "email": "user@email.com",
+  "password": "$2a$08$L33uZV07aEEIdwBRt4bqzuRUZOguqzLMY..DFArhZSpmR47tQY48q",
+  "image": null
+},
+{
+  "_id": {
+    "$oid": "65bf6ebd8a0aa8b3a48d59df"
+  },
+  "name": "Patryk Orłowski",
+  "email": "orlowski.dev@gmail.com",
+  "password": "$2a$08$DqpAYyB6GtQ4cJ.8Nl72ZezeaGJ4gPOd2w2ilBeMQ9w1ewsBxA/ry",
+  "image": null
+}]

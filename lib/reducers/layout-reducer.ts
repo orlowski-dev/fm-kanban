@@ -1,8 +1,9 @@
-import { I_BoardModel } from "../models/Board";
-import { I_Column } from "../models/Column";
-import { I_Task } from "../models/Task";
+import type { I_BoardModel } from "../models/Board";
+import type { I_Column } from "../models/Column";
+import type { I_Task } from "../models/Task";
 
 export interface I_LayoutReducerStates {
+  refreshBoards: boolean;
   boards: I_BoardModel[] | null;
   currentBoardId: string | null;
   isSidebarVisible: boolean;
@@ -30,26 +31,49 @@ type T_CurrentBoardActions = {
   payload: string | null;
 };
 
+type T_AddToArrayOfObjects = {
+  type: "addBoard";
+  payload: Object;
+};
+
+type T_SetBooleanAction = {
+  type: "setRefreshBoards";
+  payload: boolean;
+};
+
 export type T_LayoutReducerActions =
   | T_BoardsActions
   | T_SidebardVisibilityActions
   | T_ColumnsAndTasksActions
-  | T_CurrentBoardActions;
+  | T_CurrentBoardActions
+  | T_AddToArrayOfObjects
+  | T_SetBooleanAction;
 
 const layoutReducer = (
   states: I_LayoutReducerStates,
   action: T_LayoutReducerActions
 ): I_LayoutReducerStates => {
   switch (action.type) {
+    case "setRefreshBoards":
+      return { ...states, refreshBoards: action.payload };
     case "setBoards":
-      return { ...states, boards: action.payload };
+      return { ...states, boards: action.payload, refreshBoards: false };
     case "setIsSidebarVisible":
       return { ...states, isSidebarVisible: action.payload };
     case "setColumnsAndTasks":
       return {
         ...states,
-        columns: action.payload.columns ?? states.columns,
-        tasks: action.payload.tasks ?? states.tasks,
+        columns: action.payload.columns ?? null,
+        tasks: action.payload.tasks ?? null,
+      };
+    case "addBoard":
+      if (!states.boards || states.boards?.length === 0) {
+        return { ...states, boards: [action.payload as I_BoardModel] };
+      }
+
+      return {
+        ...states,
+        boards: [...states.boards, action.payload as I_BoardModel],
       };
     case "setCurrentBoard":
       return { ...states, currentBoardId: action.payload };

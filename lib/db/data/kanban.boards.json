@@ -1,0 +1,23 @@
+[
+  {
+    "_id": {
+      "$oid": "65be9cdeba0feb4ccd4be0c6"
+    },
+    "name": "Platform Lunch",
+    "author": "65be9b4b9717294a7ee997ac"
+  },
+  {
+    "_id": {
+      "$oid": "65be9cdeba0feb4ccd4be0c7"
+    },
+    "name": "Marketing Plan",
+    "author": "65be9b4b9717294a7ee997ac"
+  },
+  {
+    "_id": {
+      "$oid": "65be9cdeba0feb4ccd4be0c8"
+    },
+    "name": "Roadmap",
+    "author": "65be9b4b9717294a7ee997ac"
+  }
+]

@@ -3,7 +3,7 @@
 import { I_Column } from "@/lib/models/Column";
 import { I_Task } from "@/lib/models/Task";
 import { useContext, useEffect } from "react";
-import { MainContext } from "@/lib/contexts/context";
+import { MainContext } from "@/lib/contexts";
 import TaskCards from "./task-cards";
 import EmptyBoardPage from "./EmptyBoardPage";
 import { useParams } from "next/navigation";
@@ -17,25 +17,25 @@ const Board = ({ columns, tasks }: I_Props) => {
   const params = useParams();
   const context = useContext(MainContext);
 
+  // update columns and tasks on params change
   useEffect(() => {
     if (!context || context.states.currentBoardId === params.id) return;
-
     context.dispatch({ type: "setCurrentBoard", payload: params.id as string });
-  }, [context, params.id]);
-
-  useEffect(() => {
-    if (
-      !context ||
-      context.states.tasks === tasks ||
-      context.states.tasks === tasks
-    )
-      return;
-
     context.dispatch({
       type: "setColumnsAndTasks",
       payload: { columns, tasks },
     });
-  }, [context, tasks, columns]);
+  }, [context, params.id, columns, tasks]);
+
+  // update columns and tasks on request
+  useEffect(() => {
+    if (!context?.states.refreshBoards) return;
+    console.log("on request");
+    context.dispatch({
+      type: "setColumnsAndTasks",
+      payload: { columns, tasks },
+    });
+  }, [context, columns, tasks]);
 
   if (!context) return;
 

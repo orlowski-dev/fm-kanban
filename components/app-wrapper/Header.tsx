@@ -5,7 +5,7 @@ import { makeClassList } from "@/lib/utils";
 import { HiDotsVertical, HiPlus } from "react-icons/hi";
 import { useParams } from "next/navigation";
 import { useContext } from "react";
-import { MainContext } from "@/lib/contexts/context";
+import { MainContext } from "@/lib/contexts";
 import Image from "next/image";
 import Dropdown from "../dropdown";
 import ThemeToggler from "../theme-toggler";

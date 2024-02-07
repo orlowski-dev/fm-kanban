@@ -4,7 +4,7 @@ import { Button } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
 import { HiEyeOff } from "react-icons/hi";
 import { useContext } from "react";
-import { MainContext } from "@/lib/contexts/context";
+import { MainContext } from "@/lib/contexts";
 import ThemeToggler from "@/components/theme-toggler";
 import BoardList from "../board-list";
 import "@/assets/styles/app-wrapper.css";

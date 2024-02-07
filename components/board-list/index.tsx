@@ -5,6 +5,10 @@ import { TbLayoutBoardSplit } from "react-icons/tb";
 import { useParams } from "next/navigation";
 import BoardsLoading from "./loading";
 import Link from "next/link";
+import { useContext } from "react";
+import Modal from "../modal";
+import { ModalContext } from "@/lib/contexts";
+import CreateNewBoardForm from "../forms/CreateNewBoardForm";
 
 export interface I_BoardListProps {
   data: I_BoardModel[] | undefined | null;
@@ -13,10 +17,13 @@ export interface I_BoardListProps {
 const BoardList = ({ data }: I_BoardListProps) => {
   const params = useParams();
   const id = params.id as string;
+  const context = useContext(ModalContext);
 
   if (data === undefined) {
     return <BoardsLoading />;
   }
+
+  if (!context) return;
 
   return (
     <div>
@@ -42,7 +49,16 @@ const BoardList = ({ data }: I_BoardListProps) => {
           : undefined}
         <li>
           <button
-            // onClick={() => createNewOnClick("create-board")}
+            onClick={() =>
+              context.dispatch({
+                type: "setModal",
+                payload: (
+                  <Modal title="Add new board">
+                    <CreateNewBoardForm />
+                  </Modal>
+                ),
+              })
+            }
             className="sidebar__boardlink new"
           >
             <TbLayoutBoardSplit className="text-[1.125rem]" />
