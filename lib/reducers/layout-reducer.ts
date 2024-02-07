@@ -32,7 +32,7 @@ type T_CurrentBoardActions = {
 };
 
 type T_AddToArrayOfObjects = {
-  type: "addBoard";
+  type: "addBoard" | "addColumn";
   payload: Object;
 };
 
@@ -48,6 +48,10 @@ export type T_LayoutReducerActions =
   | T_CurrentBoardActions
   | T_AddToArrayOfObjects
   | T_SetBooleanAction;
+
+const addToArray = <T>(elem: T, array: T[] | null) => {
+  return !array || array?.length === 0 ? [elem] : [...array, elem];
+};
 
 const layoutReducer = (
   states: I_LayoutReducerStates,
@@ -67,13 +71,21 @@ const layoutReducer = (
         tasks: action.payload.tasks ?? null,
       };
     case "addBoard":
-      if (!states.boards || states.boards?.length === 0) {
-        return { ...states, boards: [action.payload as I_BoardModel] };
-      }
+      const newBoard = action.payload as I_BoardModel;
+      return { ...states, boards: addToArray(newBoard, states.boards) };
+    // if (!states.boards || states.boards?.length === 0) {
+    //   return { ...states, boards: [action.payload as I_BoardModel] };
+    // }
 
+    // return {
+    //   ...states,
+    //   boards: [...states.boards, action.payload as I_BoardModel],
+    // };
+    case "addColumn":
+      const newColumn = action.payload as I_Column;
       return {
         ...states,
-        boards: [...states.boards, action.payload as I_BoardModel],
+        columns: addToArray(newColumn, states.columns),
       };
     case "setCurrentBoard":
       return { ...states, currentBoardId: action.payload };

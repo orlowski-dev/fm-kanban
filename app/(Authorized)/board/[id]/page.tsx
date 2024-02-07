@@ -30,8 +30,6 @@ const BoardPage = async (props: I_Props) => {
 
   const res = await getColumnsAndTasks(props.params.id);
 
-  console.log(res.data?.tasks);
-
   return (
     <Suspense fallback={<ColumnLoading />}>
       <Board {...res.data} />

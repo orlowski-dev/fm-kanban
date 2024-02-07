@@ -30,7 +30,6 @@ const Board = ({ columns, tasks }: I_Props) => {
   // update columns and tasks on request
   useEffect(() => {
     if (!context?.states.refreshBoards) return;
-    console.log("on request");
     context.dispatch({
       type: "setColumnsAndTasks",
       payload: { columns, tasks },
