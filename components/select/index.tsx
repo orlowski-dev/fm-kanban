@@ -1,6 +1,6 @@
 "use client";
 import type { ForwardedRef, InputHTMLAttributes } from "react";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useId, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { HiChevronDown } from "react-icons/hi";
 import "@/assets/styles/input.css";
@@ -45,6 +45,7 @@ const Select = forwardRef(function Select(
   const [inpValue, setInpValue] = useState(defaultSelected ?? options[0].key);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const optionsRef = useRef<HTMLUListElement>(null);
+  const id = useId();
 
   // outside click
   useEffect(() => {
@@ -69,6 +70,11 @@ const Select = forwardRef(function Select(
       />
       <button
         className="select__input input"
+        type="button"
+        role="button"
+        aria-controls={id}
+        aria-haspopup="true"
+        aria-expanded={optionsVisible}
         onClick={() => setOptionsVisible((prev) => !prev)}
       >
         <span>{options.find((option) => option.key === inpValue)?.value}</span>
@@ -85,6 +91,7 @@ const Select = forwardRef(function Select(
         transition={{ bounce: 0, duration: 0.1 }}
         className="select__option_list"
         ref={optionsRef}
+        id={id}
       >
         {options.map((option, index: number) => (
           <li

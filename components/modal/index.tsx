@@ -51,19 +51,21 @@ const Modal = ({ children, title }: I_ModalProps) => {
       initial="closed"
       className="modal"
     >
-      <div className="w-full max-w-[30rem] bg-white dark:bg-dark-grey transition-colors rounded-md p-6 grid gap-6">
-        <header className="flex items-center justify-between gap-2">
-          <p className="text-bodysm">{title ?? "Modal"}</p>
-          <button
-            title="Close"
-            onClick={() =>
-              context.dispatch({ type: "setSignal", payload: "close" })
-            }
-          >
-            <HiX />
-          </button>
-        </header>
-        <div className="relative max-h-modal">{children}</div>
+      <div className="w-full max-w-[30rem] bg-white dark:bg-dark-grey transition-colors rounded-md p-6">
+        <div className="max-h-modal overflow-y-auto no-scrollbar grid gap-6">
+          <header className="sticky top-0 left-0 z-10 bg-white dark:bg-dark-grey transition-colors pb-2 flex items-center justify-between gap-2">
+            <p className="text-bodysm">{title ?? "Modal"}</p>
+            <button
+              title="Close"
+              onClick={() =>
+                context.dispatch({ type: "setSignal", payload: "close" })
+              }
+            >
+              <HiX />
+            </button>
+          </header>
+          <div className="relative">{children}</div>
+        </div>
       </div>
     </motion.div>
   );

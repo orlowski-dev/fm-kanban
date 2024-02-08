@@ -32,7 +32,7 @@ type T_CurrentBoardActions = {
 };
 
 type T_AddToArrayOfObjects = {
-  type: "addBoard" | "addColumn";
+  type: "addBoard" | "addColumn" | "addTask";
   payload: Object;
 };
 
@@ -73,20 +73,15 @@ const layoutReducer = (
     case "addBoard":
       const newBoard = action.payload as I_BoardModel;
       return { ...states, boards: addToArray(newBoard, states.boards) };
-    // if (!states.boards || states.boards?.length === 0) {
-    //   return { ...states, boards: [action.payload as I_BoardModel] };
-    // }
-
-    // return {
-    //   ...states,
-    //   boards: [...states.boards, action.payload as I_BoardModel],
-    // };
     case "addColumn":
       const newColumn = action.payload as I_Column;
       return {
         ...states,
         columns: addToArray(newColumn, states.columns),
       };
+    case "addTask":
+      const newTask = action.payload as I_Task;
+      return { ...states, tasks: addToArray(newTask, states.tasks) };
     case "setCurrentBoard":
       return { ...states, currentBoardId: action.payload };
     default:

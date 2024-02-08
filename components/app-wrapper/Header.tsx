@@ -3,15 +3,16 @@
 import { Button, IconButton } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
 import { HiDotsVertical, HiPlus } from "react-icons/hi";
-import { useParams } from "next/navigation";
 import { useContext } from "react";
-import { MainContext } from "@/lib/contexts";
+import { MainContext, ModalContext } from "@/lib/contexts";
 import Image from "next/image";
 import Dropdown from "../dropdown";
 import ThemeToggler from "../theme-toggler";
 import LogoutButton from "./LogoutButton";
 import BoardList from "../board-list";
 import "@/assets/styles/app-wrapper.css";
+import Modal from "../modal";
+import TaskForm from "../forms/TaskForm";
 
 interface I_Props {
   isSidebarVisible: boolean;
@@ -19,14 +20,26 @@ interface I_Props {
 
 const Header = ({ isSidebarVisible }: I_Props) => {
   const context = useContext(MainContext);
+  const modalContext = useContext(ModalContext);
 
   if (!context) return;
 
-  const { states, dispatch } = context;
+  const { states } = context;
   const columsExists = states.columns && states.columns.length > 0;
   const currentBoard = states.boards?.find(
     (board) => board._id === states.currentBoardId
   );
+
+  const onAddNewTaskClick = () => {
+    modalContext?.dispatch({
+      type: "setModal",
+      payload: (
+        <Modal title="Add New Task">
+          <TaskForm action="create" />
+        </Modal>
+      ),
+    });
+  };
 
   return (
     <header
@@ -88,6 +101,7 @@ const Header = ({ isSidebarVisible }: I_Props) => {
               size="sm"
               title="Add new task"
               disabled={!columsExists ?? undefined}
+              onClick={onAddNewTaskClick}
             >
               <HiPlus />
             </IconButton>
@@ -96,6 +110,7 @@ const Header = ({ isSidebarVisible }: I_Props) => {
             <Button
               startIcon={<HiPlus />}
               disabled={!columsExists ?? undefined}
+              onClick={onAddNewTaskClick}
             >
               Add new task
             </Button>

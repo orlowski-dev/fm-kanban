@@ -64,7 +64,7 @@ const CreateNewBoardForm = ({}: I_CreateNewBoardFormProps) => {
     modalContext?.dispatch({ type: "setSignal", payload: "close" });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
       {formStates.formState === "error" ? (
         <Alert
           title="Unable to create a new board."

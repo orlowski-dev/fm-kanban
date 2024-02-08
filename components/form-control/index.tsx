@@ -4,7 +4,7 @@ import { makeClassList } from "@/lib/utils";
 import "@/assets/styles/form-control.css";
 
 export interface I_LabelProps {
-  id: string;
+  id?: string;
   text: string;
 }
 export interface I_HelpTextProps {
