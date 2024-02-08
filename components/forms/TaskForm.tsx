@@ -28,14 +28,27 @@ interface I_Inputs {
   subtasks: { [key: string]: string };
 }
 
-const makeSubtasksArr = (data: { [key: string]: string }) => {
-  const subtasks: I_Subtask[] = [];
+interface I_SubtaskInput {
+  id: string;
+  value: string;
+  placeholder?: string;
+  checked: boolean;
+}
 
-  Object.keys(data).forEach((key) => {
-    subtasks.push({ title: data[key], isCompleted: false });
-  });
+const makeSubtasksArr = (
+  data: { [key: string]: string },
+  inputs: I_SubtaskInput[]
+) =>
+  inputs.map((input) => ({
+    title: data[input.id],
+    isCompleted: input.checked,
+  }));
 
-  return subtasks;
+const emptySubtask = {
+  id: uniqid(),
+  placeholder: "Subtask title",
+  value: "",
+  checked: false,
 };
 
 const TaskForm = ({ action, task }: I_TaskFormProps) => {
@@ -53,18 +66,23 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<I_Inputs>({ mode: "onChange" });
-  const [subtasksInputs, setSubtasksInputs] = useState<
-    { id: string; value: string; placeholder?: string }[]
-  >(() => {
+  const [subtasksInputs, setSubtasksInputs] = useState<I_SubtaskInput[]>(() => {
     if (task && task.subtasks.length > 0) {
       return task.subtasks.map((subtask, index: number) => ({
-        id: String(index),
+        id: uniqid(),
         value: subtask.title,
+        checked: subtask.isCompleted,
       }));
     }
     return [
-      { id: uniqid(), placeholder: "e.g. Make coffee", value: "" },
-      { id: uniqid(), placeholder: "e.g. Drink coffee & smile", value: "" },
+      {
+        ...emptySubtask,
+        placeholder: "e.g. Make coffee",
+      },
+      {
+        ...emptySubtask,
+        placeholder: "e.g. Drink coffee & smile",
+      },
     ];
   });
 
@@ -87,7 +105,10 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
     }
 
     formDispatch({ name: "setLoading" });
-    const subtasks: I_Subtask[] = makeSubtasksArr(data.subtasks);
+    const subtasks: I_Subtask[] = makeSubtasksArr(
+      data.subtasks,
+      subtasksInputs
+    );
 
     const newTask: Omit<I_Task, "_id"> = {
       title: data.title,
@@ -117,10 +138,12 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
 
   const updateTask: SubmitHandler<I_Inputs> = async (data) => {
     if (!selectRef.current || !task) return;
-    const subtasks = makeSubtasksArr(data.subtasks);
+    const subtasks = makeSubtasksArr(data.subtasks, subtasksInputs);
     const { _id, ...oldTask } = task;
 
-    // _id cannot be passed when coll.updateOne
+    console.log(subtasks);
+
+    // _id cannot exist when calling coll.updateOne()
     const newTask: Omit<I_Task, "_id"> = {
       ...oldTask,
       column: selectRef.current.value,
@@ -156,20 +179,11 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
 
   const addSubtaskInput = () => {
     if (subtasksInputs.length === 0) {
-      setSubtasksInputs([
-        { id: uniqid(), value: "", placeholder: "Subtask title" },
-      ]);
+      setSubtasksInputs([emptySubtask]);
       return;
     }
 
-    setSubtasksInputs([
-      ...subtasksInputs,
-      {
-        id: uniqid(),
-        placeholder: "Subtask title",
-        value: "",
-      },
-    ]);
+    setSubtasksInputs([...subtasksInputs, emptySubtask]);
   };
 
   return (
