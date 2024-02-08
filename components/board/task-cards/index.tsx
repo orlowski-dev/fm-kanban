@@ -1,8 +1,12 @@
 "use client";
 
+import TaskDetailsForm from "@/components/forms/TaskDetailsModalForm";
+import Modal from "@/components/modal";
+import { ModalContext } from "@/lib/contexts";
 import { I_Task } from "@/lib/models/Task";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 
 interface I_Props {
   tasks: I_Task[];
@@ -18,6 +22,7 @@ const childrenVariant: Variants = {
 };
 
 const TaskCards = ({ tasks }: I_Props) => {
+  const modalContext = useContext(ModalContext);
   return (
     <motion.ul
       className="grid gap-3"
@@ -30,6 +35,16 @@ const TaskCards = ({ tasks }: I_Props) => {
           key={task._id}
           variants={childrenVariant}
           className="block px-4 py-6 rounded-md bg-white dark:bg-dark-grey transition-colors shadow-lg cursor-pointer"
+          onClick={() =>
+            modalContext?.dispatch({
+              type: "setModal",
+              payload: (
+                <Modal title="Task details">
+                  <TaskDetailsForm task={task} />
+                </Modal>
+              ),
+            })
+          }
         >
           <p className="text-hmd mb-2">{task.title}</p>
           <p className="text-bodysm text-medium-grey">

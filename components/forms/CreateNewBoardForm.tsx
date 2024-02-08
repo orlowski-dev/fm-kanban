@@ -68,7 +68,7 @@ const CreateNewBoardForm = ({}: I_CreateNewBoardFormProps) => {
       {formStates.formState === "error" ? (
         <Alert
           title="Unable to create a new board."
-          detail={formStates.formErrorMessage ?? "Unknown error. Try again."}
+          details={formStates.formErrorMessage ?? "Unknown error. Try again."}
           type="error"
           icon
         />

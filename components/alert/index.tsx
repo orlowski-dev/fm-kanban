@@ -10,7 +10,7 @@ export type T_AlertType = "error" | "success" | "info";
 
 export interface I_AlertProps {
   title: string;
-  detail: string;
+  details: string;
   type: T_AlertType;
   icon?: boolean;
 }
@@ -28,13 +28,13 @@ const Icon = ({ type }: { type: T_AlertType }) => {
   }
 };
 
-const Alert = ({ title, detail, type, icon }: I_AlertProps) => {
+const Alert = ({ title, details, type, icon }: I_AlertProps) => {
   return (
     <section role="alert" className={makeClassList(["alert", type])}>
       <header className="alert__header">
         {icon ? <Icon type={type} /> : undefined} <span>{title}</span>
       </header>
-      <p className="alert__detail">{detail}</p>
+      <p className="alert__details">{details}</p>
     </section>
   );
 };

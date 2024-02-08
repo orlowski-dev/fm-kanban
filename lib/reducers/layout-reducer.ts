@@ -41,16 +41,38 @@ type T_SetBooleanAction = {
   payload: boolean;
 };
 
+type T_UpdateObjectInArray = {
+  type: "updateTask";
+  payload: { old: Object; new: Object };
+};
+
 export type T_LayoutReducerActions =
   | T_BoardsActions
   | T_SidebardVisibilityActions
   | T_ColumnsAndTasksActions
   | T_CurrentBoardActions
   | T_AddToArrayOfObjects
-  | T_SetBooleanAction;
+  | T_SetBooleanAction
+  | T_UpdateObjectInArray;
 
 const addToArray = <T>(elem: T, array: T[] | null) => {
   return !array || array?.length === 0 ? [elem] : [...array, elem];
+};
+
+const updateObjInArr = <T>(payload: { old: T; new: T }, arr: T[] | null) => {
+  if (!arr || arr?.length === 0) {
+    throw new Error("Array of objects is empty");
+  }
+  const temp = arr.find((arrObj) => arrObj === payload.old);
+  if (!temp) {
+    throw new Error("Object was not found in an array of objects.");
+  }
+
+  const index = arr.indexOf(temp);
+  const newArr = [...arr];
+
+  newArr[index] = payload.new;
+  return newArr;
 };
 
 const layoutReducer = (
@@ -69,6 +91,7 @@ const layoutReducer = (
         ...states,
         columns: action.payload.columns ?? null,
         tasks: action.payload.tasks ?? null,
+        refreshBoards: false,
       };
     case "addBoard":
       const newBoard = action.payload as I_BoardModel;
@@ -84,6 +107,12 @@ const layoutReducer = (
       return { ...states, tasks: addToArray(newTask, states.tasks) };
     case "setCurrentBoard":
       return { ...states, currentBoardId: action.payload };
+    case "updateTask":
+      const newTaskPl = action.payload as { old: I_Task; new: I_Task };
+      return {
+        ...states,
+        tasks: updateObjInArr(newTaskPl, states.tasks),
+      };
     default:
       throw new Error("Unknown reduder action");
   }

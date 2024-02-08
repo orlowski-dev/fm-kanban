@@ -1,6 +1,6 @@
 interface I_ServerActionResponse {
   status: number;
-  detail?: string;
+  details?: string;
   data?: Object | Object[] | null;
   errorMessage?: string;
 }

@@ -3,10 +3,13 @@
 import { I_Column } from "@/lib/models/Column";
 import { I_Task } from "@/lib/models/Task";
 import { useContext, useEffect } from "react";
-import { MainContext } from "@/lib/contexts";
+import { MainContext, ModalContext } from "@/lib/contexts";
+import { HiPlus } from "react-icons/hi";
+import { useParams } from "next/navigation";
 import TaskCards from "./task-cards";
 import EmptyBoardPage from "./EmptyBoardPage";
-import { useParams } from "next/navigation";
+import CreateNewColumnForm from "../forms/CreateNewColumnForm";
+import Modal from "../modal";
 
 interface I_Props {
   columns?: I_Column[] | null;
@@ -16,6 +19,7 @@ interface I_Props {
 const Board = ({ columns, tasks }: I_Props) => {
   const params = useParams();
   const context = useContext(MainContext);
+  const modalContext = useContext(ModalContext);
 
   // update columns and tasks on params change
   useEffect(() => {
@@ -38,7 +42,7 @@ const Board = ({ columns, tasks }: I_Props) => {
 
   if (!context) return;
 
-  const { states, dispatch } = context;
+  const { states } = context;
 
   if (!states.columns) {
     return <EmptyBoardPage />;
@@ -51,8 +55,10 @@ const Board = ({ columns, tasks }: I_Props) => {
       <ul
         className="grid gap-6 mx-auto"
         style={{
-          gridTemplateColumns: `repeat(${columnsLength}, 17.5rem)`,
-          width: `calc(17.5rem * ${columnsLength} + 1.5rem * ${columnsLength})`,
+          gridTemplateColumns: `repeat(${columnsLength + 1}, 17.5rem)`,
+          width: `calc(17.5rem * ${columnsLength + 1} + 1.5rem * ${
+            columnsLength + 1
+          })`,
         }}
       >
         {states.columns.map((column) => {
@@ -73,6 +79,24 @@ const Board = ({ columns, tasks }: I_Props) => {
             </li>
           );
         })}
+        <div
+          className="p-6 rounded-md mt-8 min-h-12 flex items-center justify-center bg-white dark:bg-dark-grey transition-colors"
+          role="button"
+          onClick={() =>
+            modalContext?.dispatch({
+              type: "setModal",
+              payload: (
+                <Modal title="Add Column">
+                  <CreateNewColumnForm />
+                </Modal>
+              ),
+            })
+          }
+        >
+          <p className="text-bodysm text-medium-grey flex items-center gap-2">
+            <HiPlus /> Add Column
+          </p>
+        </div>
       </ul>
     </section>
   );

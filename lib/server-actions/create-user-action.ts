@@ -20,7 +20,7 @@ const createUserAction = async (
 
     const foundUser = await coll.findOne({ email: data.email });
     if (foundUser) {
-      return { status: 400, detail: "User already exists." };
+      return { status: 400, details: "User already exists." };
     }
 
     // hash password
@@ -33,12 +33,12 @@ const createUserAction = async (
       image: null,
     });
 
-    return { status: 201, detail: "User has been created" };
+    return { status: 201, details: "User has been created" };
   } catch (error) {
     console.log(error);
     return {
       status: 500,
-      detail: "Something went wrong. Try again.",
+      details: "Something went wrong. Try again.",
       errorMessage: String(error),
     };
   } finally {

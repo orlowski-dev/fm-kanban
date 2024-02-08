@@ -22,20 +22,20 @@ const loginUserAction = async (
     if (!user || !(await compare(data.password, user.password))) {
       return {
         status: 401,
-        detail: "Wrong email address or/and password. Try again.",
+        details: "Wrong email address or/and password. Try again.",
       };
     }
 
     return {
       status: 200,
-      detail: "Authorized",
+      details: "Authorized",
       data: user,
     };
   } catch (error) {
     console.log(error);
     return {
       status: 500,
-      detail: "Something went wrong. Try again.",
+      details: "Something went wrong. Try again.",
       errorMessage: String(error),
     };
   } finally {

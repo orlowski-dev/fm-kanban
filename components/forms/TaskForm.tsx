@@ -3,7 +3,7 @@
 import { I_Task } from "@/lib/models/Task";
 import { FormControl, Label } from "../form-control";
 import Input from "../input";
-import { useContext, useReducer, useRef, useState } from "react";
+import { useContext, useId, useReducer, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import formReducer from "@/lib/reducers/form-reducer";
 import Textarea from "../textarea";
@@ -14,6 +14,7 @@ import { I_Subtask } from "@/lib/models/Subtask";
 import { HiPlus, HiX } from "react-icons/hi";
 import { saveData } from "@/lib/server-actions/simple-actions";
 import Alert from "../alert";
+import uniqid from "uniqid";
 
 export interface I_TaskFormProps {
   action: "create" | "update";
@@ -24,9 +25,18 @@ interface I_Inputs {
   _id: string;
   title: string;
   description: string;
-  //column: string;
   subtasks: { [key: string]: string };
 }
+
+const makeSubtasksArr = (data: { [key: string]: string }) => {
+  const subtasks: I_Subtask[] = [];
+
+  Object.keys(data).forEach((key) => {
+    subtasks.push({ title: data[key], isCompleted: false });
+  });
+
+  return subtasks;
+};
 
 const TaskForm = ({ action, task }: I_TaskFormProps) => {
   if (action === "update" && !task) {
@@ -53,8 +63,8 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
       }));
     }
     return [
-      { id: "0", placeholder: "e.g. Make coffee", value: "" },
-      { id: "1", placeholder: "e.g. Drink coffee & smile", value: "" },
+      { id: uniqid(), placeholder: "e.g. Make coffee", value: "" },
+      { id: uniqid(), placeholder: "e.g. Drink coffee & smile", value: "" },
     ];
   });
 
@@ -71,20 +81,13 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
   };
 
   const saveNew: SubmitHandler<I_Inputs> = async (data) => {
-    formDispatch({ name: "setLoading" });
-    const subtasks: I_Subtask[] = [];
-    console.log(selectRef.current?.value);
-
     if (!selectRef.current?.value) {
       console.log("Select ref is null.");
       return;
     }
 
-    if (data?.subtasks) {
-      for (const k in Object.keys(data.subtasks)) {
-        subtasks.push({ title: data.subtasks[k], isCompleted: false });
-      }
-    }
+    formDispatch({ name: "setLoading" });
+    const subtasks: I_Subtask[] = makeSubtasksArr(data.subtasks);
 
     const newTask: Omit<I_Task, "_id"> = {
       title: data.title,
@@ -119,14 +122,16 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
 
   const addSubtaskInput = () => {
     if (subtasksInputs.length === 0) {
-      setSubtasksInputs([{ id: "0", value: "" }]);
+      setSubtasksInputs([
+        { id: uniqid(), value: "", placeholder: "Subtask title" },
+      ]);
       return;
     }
 
     setSubtasksInputs([
       ...subtasksInputs,
       {
-        id: String(subtasksInputs.length + 1),
+        id: uniqid(),
         placeholder: "Subtask title",
         value: "",
       },
@@ -138,7 +143,7 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
       {formStates.formState === "error" ? (
         <Alert
           title="Unable to create a new task."
-          detail={formStates.formErrorMessage ?? "Unknown error. Try again."}
+          details={formStates.formErrorMessage ?? "Unknown error. Try again."}
           type="error"
           icon
         />
@@ -167,39 +172,43 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
       </FormControl>
       <div className="grid gap-3">
         <Label text="Subtasks" />
-        {subtasksInputs.map((input) => (
-          <FormControl
-            key={input.id}
-            helpText={
-              errors.subtasks && errors.subtasks[input.id]
-                ? errors.subtasks[input.id]?.message
-                : undefined
-            }
-            error={Boolean(
-              errors.subtasks && errors.subtasks[input.id]
-                ? errors.subtasks[input.id]?.message
-                : undefined
-            )}
-          >
-            <div className="flex gap-1 items-center">
-              <Input
-                id={input.id}
-                {...register(`subtasks.${input.id}`, {
-                  required: "This field is required",
-                })}
-                placeholder={input?.placeholder ?? undefined}
-                defaultValue={input.value}
-              />
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => removeSubtaskInput(input.id)}
-              >
-                <HiX />
-              </Button>
-            </div>
-          </FormControl>
-        ))}
+        <div className="grid gap-2">
+          {subtasksInputs.map((input, index: number) => (
+            <FormControl
+              key={index}
+              helpText={
+                errors.subtasks && errors.subtasks[input.id]
+                  ? errors.subtasks[input.id]?.message
+                  : undefined
+              }
+              error={Boolean(
+                errors.subtasks && errors.subtasks[input.id]
+                  ? errors.subtasks[input.id]?.message
+                  : undefined
+              )}
+            >
+              <div className="flex gap-1 items-center">
+                <Input
+                  id={input.id}
+                  {...register(`subtasks.${input.id}`, {
+                    required: "This field is required",
+                  })}
+                  placeholder={input?.placeholder ?? undefined}
+                  defaultValue={input.value}
+                />
+                {index !== 0 ? (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeSubtaskInput(input.id)}
+                  >
+                    <HiX />
+                  </Button>
+                ) : null}
+              </div>
+            </FormControl>
+          ))}
+        </div>
         <Button
           type="button"
           startIcon={<HiPlus />}

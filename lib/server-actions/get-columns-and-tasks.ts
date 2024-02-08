@@ -54,7 +54,7 @@ const getColumnsAndTasks = async (
     console.log(error);
     return {
       status: 500,
-      detail: "Unable to get columns and tasks",
+      details: "Unable to get columns and tasks",
       errorMessage: String(error),
     };
   } finally {

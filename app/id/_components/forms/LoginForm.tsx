@@ -47,7 +47,7 @@ const LoginForm = ({ searchParams }: I_SignInSearchParams) => {
         <Alert
           type="error"
           title="Unable to log in"
-          detail={
+          details={
             error === "CredentialsSignin"
               ? "Wrong email address or/and password. Try again."
               : "Something went wrong. Try again."

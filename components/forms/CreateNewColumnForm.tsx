@@ -76,13 +76,13 @@ const CreateNewColumnForm = () => {
       {formStates.formState === "error" ? (
         <Alert
           title="Unable to create a new column."
-          detail={formStates.formErrorMessage ?? "Unknown error. Try again."}
+          details={formStates.formErrorMessage ?? "Unknown error. Try again."}
           type="error"
           icon
         />
       ) : undefined}
       <FormControl
-        labelText="Board name"
+        labelText="Column name"
         helpText={errors.columnName?.message}
         error={Boolean(errors.columnName?.message)}
       >
