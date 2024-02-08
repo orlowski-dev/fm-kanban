@@ -12,7 +12,7 @@ import { MainContext, ModalContext } from "@/lib/contexts";
 import { Button } from "../button";
 import { I_Subtask } from "@/lib/models/Subtask";
 import { HiPlus, HiX } from "react-icons/hi";
-import { saveData } from "@/lib/server-actions/simple-actions";
+import { saveData, updateDocument } from "@/lib/server-actions/simple-actions";
 import Alert from "../alert";
 import uniqid from "uniqid";
 
@@ -77,7 +77,7 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
   });
 
   const onSubmit: SubmitHandler<I_Inputs> = async (data) => {
-    action === "create" ? saveNew(data) : undefined;
+    action === "create" ? saveNew(data) : updateTask(data);
   };
 
   const saveNew: SubmitHandler<I_Inputs> = async (data) => {
@@ -111,6 +111,40 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
     mainContext?.dispatch({
       type: "addTask",
       payload: { ...newTask, _id: res.data.insertedIds[0] },
+    });
+    modalContext?.dispatch({ type: "setSignal", payload: "close" });
+  };
+
+  const updateTask: SubmitHandler<I_Inputs> = async (data) => {
+    if (!selectRef.current || !task) return;
+    const subtasks = makeSubtasksArr(data.subtasks);
+    const { _id, ...oldTask } = task;
+
+    // _id cannot be passed when coll.updateOne
+    const newTask: Omit<I_Task, "_id"> = {
+      ...oldTask,
+      column: selectRef.current.value,
+      subtasks: subtasks,
+      title: data.title,
+      description: data.description,
+    };
+
+    const res = await updateDocument("tasks", task._id, newTask);
+
+    if (res.status !== 200) {
+      formDispatch({
+        name: "setError",
+        payload: {
+          formErrorMessage: res.errorMessage ?? "Unknown error. Try again.",
+        },
+      });
+      return;
+    }
+
+    // remebmer to add missing _id!!!
+    mainContext?.dispatch({
+      type: "updateTask",
+      payload: { old: task, new: { ...newTask, _id: _id } },
     });
     modalContext?.dispatch({ type: "setSignal", payload: "close" });
   };

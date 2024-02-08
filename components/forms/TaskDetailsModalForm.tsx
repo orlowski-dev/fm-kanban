@@ -76,7 +76,7 @@ const TaskDetailsForm = ({ task }: I_TaskDetailsFormProps) => {
   };
 
   return (
-    <section className="grid gap-6">
+    <section className="grid gap-4">
       <button
         onClick={() =>
           modalContext?.dispatch({
@@ -104,8 +104,11 @@ const TaskDetailsForm = ({ task }: I_TaskDetailsFormProps) => {
             icon
           />
         ) : undefined}
-        <Label text={`Subtasks (${completed} of ${tempSubtasks.length})`} />
+
         <div className="mt-3 grid gap-1">
+          <div className="mb-2">
+            <Label text={`Subtasks (${completed} of ${tempSubtasks.length})`} />
+          </div>
           {tempSubtasks.map((subtask, index: number) => (
             <Checkbox
               key={index}
