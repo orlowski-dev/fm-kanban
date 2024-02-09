@@ -2,17 +2,17 @@
 
 import { I_Task } from "@/lib/models/Task";
 import { FormControl, Label } from "../form-control";
-import Input from "../input";
 import { useContext, useId, useReducer, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import formReducer from "@/lib/reducers/form-reducer";
-import Textarea from "../textarea";
-import Select from "../select";
 import { MainContext, ModalContext } from "@/lib/contexts";
 import { Button } from "../button";
 import { I_Subtask } from "@/lib/models/Subtask";
 import { HiPlus, HiX } from "react-icons/hi";
 import { saveData, updateDocument } from "@/lib/server-actions/simple-actions";
+import Input from "../input";
+import formReducer from "@/lib/reducers/form-reducer";
+import Textarea from "../textarea";
+import Select from "../select";
 import Alert from "../alert";
 import uniqid from "uniqid";
 
@@ -45,7 +45,7 @@ const makeSubtasksArr = (
   }));
 
 const emptySubtask = {
-  id: uniqid(),
+  id: "",
   placeholder: "Subtask title",
   value: "",
   checked: false,
@@ -77,10 +77,12 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
     return [
       {
         ...emptySubtask,
+        id: uniqid(),
         placeholder: "e.g. Make coffee",
       },
       {
         ...emptySubtask,
+        id: uniqid(),
         placeholder: "e.g. Drink coffee & smile",
       },
     ];
@@ -141,8 +143,6 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
     const subtasks = makeSubtasksArr(data.subtasks, subtasksInputs);
     const { _id, ...oldTask } = task;
 
-    console.log(subtasks);
-
     // _id cannot exist when calling coll.updateOne()
     const newTask: Omit<I_Task, "_id"> = {
       ...oldTask,
@@ -179,11 +179,11 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
 
   const addSubtaskInput = () => {
     if (subtasksInputs.length === 0) {
-      setSubtasksInputs([emptySubtask]);
+      setSubtasksInputs([{ ...emptySubtask, id: uniqid() }]);
       return;
     }
 
-    setSubtasksInputs([...subtasksInputs, emptySubtask]);
+    setSubtasksInputs([...subtasksInputs, { ...emptySubtask, id: uniqid() }]);
   };
 
   return (

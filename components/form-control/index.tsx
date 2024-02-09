@@ -12,6 +12,9 @@ export interface I_HelpTextProps {
 }
 
 export const Label = ({ id, text }: I_LabelProps) => {
+  if (!id) {
+    return <p className="form-control__label">{text}</p>;
+  }
   return (
     <label htmlFor={id} className="form-control__label">
       {text}

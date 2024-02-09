@@ -12,13 +12,11 @@ import {
 import { FormControl, Label } from "../form-control";
 import { Button } from "../button";
 import { MainContext, ModalContext } from "@/lib/contexts";
-import Checkbox from "../checkbox";
 import { updateDocument } from "@/lib/server-actions/simple-actions";
+import Checkbox from "../checkbox";
 import formReducer from "@/lib/reducers/form-reducer";
 import Alert from "../alert";
 import Select from "../select";
-import Modal from "../modal";
-import TaskForm from "./TaskForm";
 
 export interface I_TaskDetailsFormProps {
   task: I_Task;
@@ -77,20 +75,6 @@ const TaskDetailsForm = ({ task }: I_TaskDetailsFormProps) => {
 
   return (
     <section className="grid gap-4">
-      <button
-        onClick={() =>
-          modalContext?.dispatch({
-            type: "setModal",
-            payload: (
-              <Modal title="Edit task">
-                <TaskForm task={task} action="update" />
-              </Modal>
-            ),
-          })
-        }
-      >
-        Edit
-      </button>
       <h2 className="text-hlg">{task.title}</h2>
       {task.description ? (
         <p className="text-body text-medium-grey">{task.description}</p>

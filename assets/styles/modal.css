@@ -6,4 +6,7 @@
   .modal {
     @apply fixed z-50 bg-black bg-opacity-60 inset-0 flex items-center justify-center p-3;
   }
+  .modal__button {
+    @apply text-[1.125rem] text-medium-grey hover:text-main-purple-hover transition-colors w-6 h-6 inline-flex items-center justify-center;
+  }
 }

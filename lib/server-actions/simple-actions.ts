@@ -131,3 +131,35 @@ export const updateDocument = async (
     await client.close();
   }
 };
+
+export const deleteDocument = async (
+  collName: string,
+  docId: string
+): Promise<Omit<I_ServerActionResponse, "data">> => {
+  const { client, db } = await getClient();
+  try {
+    const coll = db.collection(collName);
+    const result = await coll.deleteOne({ _id: new ObjectId(docId) });
+
+    if (result.deletedCount === 0) {
+      console.log("deletedCount is 0");
+      return {
+        status: 500,
+        details: "Unable to remove the documnet. Try again.",
+      };
+    }
+
+    return {
+      status: 200,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      details: "Unable to remove the documnet. Try again.",
+      errorMessage: String(error),
+    };
+  } finally {
+    await client.close();
+  }
+};

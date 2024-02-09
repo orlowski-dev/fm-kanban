@@ -1,7 +1,7 @@
 "use client";
 import { makeClassList } from "@/lib/utils";
 import type { ForwardedRef, InputHTMLAttributes } from "react";
-import { forwardRef, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import { HiCheck } from "react-icons/hi";
 import "@/assets/styles/checkbox.css";
 
@@ -14,6 +14,7 @@ const Checkbox = forwardRef(function Checkbox(
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const [checkedState, setCheckedState] = useState(defaultChecked ?? false);
+  const id = useId();
   return (
     <label
       className={makeClassList([
@@ -22,6 +23,7 @@ const Checkbox = forwardRef(function Checkbox(
       ])}
     >
       <input
+        id={id}
         {...other}
         type="checkbox"
         ref={ref}

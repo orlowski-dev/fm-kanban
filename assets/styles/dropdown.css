@@ -25,4 +25,16 @@
   .dropdown__content.right.offset {
     @apply mr-3;
   }
+  .dropdown__options_list {
+    @apply grid gap-1 p-1;
+  }
+  .dropdown__options_list_item {
+    @apply flex items-center gap-2 text-bodysm rounded-md px-2 py-1 bg-white dark:bg-dark-grey transition-colors;
+  }
+  .dropdown__options_list_item.netural {
+    @apply hover:bg-lines-light dark:hover:bg-lines-dark hover:bg-opacity-50 dark:hover:bg-opacity-40 select-none cursor-pointer text-medium-grey font-medium;
+  }
+  .dropdown__options_list_item.danger {
+    @apply text-red transition-colors hover:bg-red-hover hover:bg-opacity-30 dark:hover:bg-opacity-10 select-none cursor-pointer;
+  }
 }

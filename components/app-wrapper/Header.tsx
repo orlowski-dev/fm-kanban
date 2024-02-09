@@ -2,17 +2,17 @@
 
 import { Button, IconButton } from "@/components/button";
 import { makeClassList } from "@/lib/utils";
-import { HiDotsVertical, HiPlus } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi";
 import { useContext } from "react";
 import { MainContext, ModalContext } from "@/lib/contexts";
 import Image from "next/image";
-import Dropdown from "../dropdown";
+import Dropdown, { DropdownOptionsList } from "../dropdown";
 import ThemeToggler from "../theme-toggler";
-import LogoutButton from "./LogoutButton";
 import BoardList from "../board-list";
-import "@/assets/styles/app-wrapper.css";
 import Modal from "../modal";
 import TaskForm from "../forms/TaskForm";
+import BoardActionsDropdown from "./dropdowns/BoardActionsDropdown";
+import "@/assets/styles/app-wrapper.css";
 
 interface I_Props {
   isSidebarVisible: boolean;
@@ -115,19 +115,7 @@ const Header = ({ isSidebarVisible }: I_Props) => {
               Add new task
             </Button>
           </div>
-          <Dropdown
-            position="right"
-            offset
-            controlElement={
-              <IconButton size="sm" variant="ghost" title="Options">
-                <HiDotsVertical />
-              </IconButton>
-            }
-          >
-            <div className="p-4 grid text-bodysm text-medium-grey">
-              <LogoutButton />
-            </div>
-          </Dropdown>
+          <BoardActionsDropdown />
         </div>
       </div>
     </header>

@@ -46,6 +46,11 @@ type T_UpdateObjectInArray = {
   payload: { old: Object; new: Object };
 };
 
+type T_RemoveObjFromArray = {
+  type: "removeTask";
+  objId: string;
+};
+
 export type T_LayoutReducerActions =
   | T_BoardsActions
   | T_SidebardVisibilityActions
@@ -53,7 +58,8 @@ export type T_LayoutReducerActions =
   | T_CurrentBoardActions
   | T_AddToArrayOfObjects
   | T_SetBooleanAction
-  | T_UpdateObjectInArray;
+  | T_UpdateObjectInArray
+  | T_RemoveObjFromArray;
 
 const addToArray = <T>(elem: T, array: T[] | null) => {
   return !array || array?.length === 0 ? [elem] : [...array, elem];
@@ -112,6 +118,12 @@ const layoutReducer = (
       return {
         ...states,
         tasks: updateObjInArr(newTaskPl, states.tasks),
+      };
+    case "removeTask":
+      return {
+        ...states,
+        tasks:
+          states.tasks?.filter((task) => task._id !== action.objId) ?? null,
       };
     default:
       throw new Error("Unknown reduder action");
