@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getOne } from "@/lib/server-actions/simple-actions";
 import { I_BoardModel } from "@/lib/models/Board";
 import authOptions from "../api/auth/[...nextauth]/options";
+import NoBoardsFoundPage from "@/components/app-wrapper/NoBoardsFoundPage";
 
 const AppPage = async () => {
   const session = await getServerSession(authOptions);
@@ -14,7 +15,7 @@ const AppPage = async () => {
     return redirect(`/board/${boards._id}`);
   }
 
-  return <section>No boards found</section>;
+  return <NoBoardsFoundPage />;
 };
 
 export default AppPage;

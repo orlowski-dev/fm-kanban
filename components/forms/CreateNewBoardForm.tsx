@@ -4,12 +4,13 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { FormControl } from "../form-control";
 import Input from "../input";
 import { Button } from "../button";
-import { useContext, useReducer } from "react";
+import { useContext, useReducer, useState } from "react";
 import formReducer from "@/lib/reducers/form-reducer";
 import Alert from "../alert";
 import { MainContext, ModalContext } from "@/lib/contexts";
 import { getSession } from "next-auth/react";
 import { saveData } from "@/lib/server-actions/simple-actions";
+import { redirect } from "next/navigation";
 
 interface I_Inputs {
   boardName: string;
@@ -20,6 +21,7 @@ interface I_CreateNewBoardFormProps {}
 const CreateNewBoardForm = ({}: I_CreateNewBoardFormProps) => {
   const mainContext = useContext(MainContext);
   const modalContext = useContext(ModalContext);
+  const [redirectPath, setRedirectPath] = useState<null | string>(null);
 
   const {
     register,
@@ -32,6 +34,10 @@ const CreateNewBoardForm = ({}: I_CreateNewBoardFormProps) => {
     formState: "neutral",
     formErrorMessage: undefined,
   });
+
+  if (redirectPath && redirectPath.length > 0) {
+    return redirect(redirectPath);
+  }
 
   const onSubmit: SubmitHandler<I_Inputs> = async (data) => {
     formDispatch({ name: "setLoading" });
@@ -57,11 +63,14 @@ const CreateNewBoardForm = ({}: I_CreateNewBoardFormProps) => {
       return;
     }
 
+    const newId = res.data.insertedIds[0];
+
     mainContext?.dispatch({
       type: "addBoard",
-      payload: { ...tempBoard, _id: res.data.insertedIds[0] },
+      payload: { ...tempBoard, _id: newId },
     });
     modalContext?.dispatch({ type: "setSignal", payload: "close" });
+    setRedirectPath("/board/" + newId);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
