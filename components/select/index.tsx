@@ -44,6 +44,11 @@ const Select = forwardRef(function Select(
 
   const [inpValue, setInpValue] = useState(defaultSelected ?? options[0].key);
   const [optionsVisible, setOptionsVisible] = useState(false);
+  const [mouseOnOptions, setMouseOnOptions] = useState(false);
+  const [optionsPosition, setOptionsPosition] = useState<{
+    [key: string]: number | string;
+  }>({ left: 0, top: 0 });
+  const selectRef = useRef<HTMLInputElement>(null);
   const optionsRef = useRef<HTMLUListElement>(null);
   const id = useId();
 
@@ -59,8 +64,48 @@ const Select = forwardRef(function Select(
     return () => document.removeEventListener("click", func);
   }, [optionsVisible]);
 
+  // on wheel
+  useEffect(() => {
+    const closeOptions = () => !mouseOnOptions && setOptionsVisible(false);
+    window.addEventListener("wheel", closeOptions);
+
+    return () => window.removeEventListener("wheel", closeOptions);
+  }, [mouseOnOptions]);
+
+  const setOptionListPosition = () => {
+    if (!selectRef.current || !optionsRef.current) return;
+    const selectRect = selectRef.current.getBoundingClientRect();
+    const screenH = document.body.offsetHeight;
+
+    if (selectRect.bottom + 202 > screenH) {
+      console.log(selectRect.bottom);
+      setOptionsPosition({
+        left: selectRect.left,
+        top: selectRect.bottom,
+        translateY: `calc(-100% - ${selectRef.current.offsetHeight}px - 16px)`,
+      });
+      return;
+    }
+
+    setOptionsPosition({
+      left: selectRect.left,
+      top: selectRect.bottom,
+      translateY: "0",
+    });
+  };
+
+  const showOptions = () => {
+    if (!optionsRef.current || !selectRef.current) return;
+
+    optionsRef.current.style.width = `${selectRef.current.offsetWidth}px`;
+
+    setOptionListPosition();
+
+    setOptionsVisible((prev) => !prev);
+  };
+
   return (
-    <div className="select" role="select">
+    <div className="select" role="select" ref={selectRef}>
       <input
         {...other}
         ref={ref}
@@ -75,7 +120,7 @@ const Select = forwardRef(function Select(
         aria-controls={id}
         aria-haspopup="true"
         aria-expanded={optionsVisible}
-        onClick={() => setOptionsVisible((prev) => !prev)}
+        onClick={showOptions}
       >
         <span>{options.find((option) => option.key === inpValue)?.value}</span>
         <HiChevronDown
@@ -92,6 +137,9 @@ const Select = forwardRef(function Select(
         className="select__option_list"
         ref={optionsRef}
         id={id}
+        onMouseEnter={() => setMouseOnOptions(true)}
+        onMouseLeave={() => setMouseOnOptions(false)}
+        style={optionsPosition}
       >
         {options.map((option, index: number) => (
           <li

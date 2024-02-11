@@ -6,7 +6,7 @@ import Dropdown, {
   DropdownOptionsListItem,
   DropdownOptionsListSeparator,
 } from "@/components/dropdown";
-import { MainContext, ModalContext } from "@/lib/contexts";
+import { ModalContext } from "@/lib/contexts";
 import { signOut } from "next-auth/react";
 import { useContext } from "react";
 import { HiDotsVertical, HiLogout, HiPlus, HiTrash } from "react-icons/hi";
