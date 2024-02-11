@@ -15,10 +15,12 @@ import Textarea from "../textarea";
 import Select from "../select";
 import Alert from "../alert";
 import uniqid from "uniqid";
+import { I_Column } from "@/lib/models/Column";
 
 export interface I_TaskFormProps {
   action: "create" | "update";
   task?: I_Task;
+  initColumn?: I_Column;
 }
 
 interface I_Inputs {
@@ -51,7 +53,7 @@ const emptySubtask = {
   checked: false,
 };
 
-const TaskForm = ({ action, task }: I_TaskFormProps) => {
+const TaskForm = ({ action, task, initColumn }: I_TaskFormProps) => {
   if (action === "update" && !task) {
     throw new Error(
       "Task prop cannot be empty when action is set to 'upadate'."
@@ -273,7 +275,7 @@ const TaskForm = ({ action, task }: I_TaskFormProps) => {
               key: column._id,
               value: column.name,
             }))}
-            defaultSelected={task?.column ?? undefined}
+            defaultSelected={task?.column || initColumn?._id || undefined}
             ref={selectRef}
           />
         </FormControl>

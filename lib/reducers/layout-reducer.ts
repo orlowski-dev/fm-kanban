@@ -47,7 +47,7 @@ type T_UpdateObjectInArray = {
 };
 
 type T_RemoveObjFromArray = {
-  type: "removeTask";
+  type: "removeTask" | "removeBoard" | "removeColumn";
   objId: string;
 };
 
@@ -124,6 +124,25 @@ const layoutReducer = (
         ...states,
         tasks:
           states.tasks?.filter((task) => task._id !== action.objId) ?? null,
+      };
+    case "removeBoard":
+      return {
+        ...states,
+        columns: null,
+        tasks: null,
+        currentBoardId: null,
+        boards:
+          states.boards?.filter((board) => board._id !== action.objId) ?? null,
+      };
+    case "removeColumn":
+      return {
+        ...states,
+        tasks: states.tasks
+          ? states.tasks?.filter((task) => task._id !== action.objId)
+          : null,
+        columns:
+          states.columns?.filter((column) => column._id !== action.objId) ??
+          null,
       };
     default:
       throw new Error("Unknown reduder action");

@@ -10,6 +10,7 @@ import TaskCards from "./task-cards";
 import EmptyBoardPage from "./EmptyBoardPage";
 import CreateNewColumnForm from "../forms/CreateNewColumnForm";
 import Modal from "../modal";
+import ColumnDropdown from "./dropdowns/ColumnDropdown";
 
 interface I_Props {
   columns?: I_Column[] | null;
@@ -68,9 +69,12 @@ const Board = ({ columns, tasks }: I_Props) => {
 
           return (
             <li key={column._id}>
-              <p className="text-bodysm text-medium-grey tracking-wide uppercase mb-4">
-                {column.name} ({tasks?.length ?? 0})
-              </p>
+              <div className="flex items-center justify-between gap-1 mb-4">
+                <p className="text-bodysm text-medium-grey tracking-wide uppercase">
+                  {column.name} ({tasks?.length ?? 0})
+                </p>
+                <ColumnDropdown column={column} />
+              </div>
               {tasks && tasks.length > 0 ? (
                 <ul>
                   <TaskCards tasks={tasks} />

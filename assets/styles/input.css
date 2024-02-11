@@ -4,7 +4,7 @@
 
 @layer components {
   .input {
-    @apply outline-none text-body text-black bg-white w-full border-2 border-lines-light rounded-md px-3 py-2 transition-colors dark:bg-very-dark-grey dark:text-white dark:border-lines-dark hover:border-main-purple-hover focus:border-main-purple dark:hover:border-main-purple-hover dark:focus:border-main-purple;
+    @apply !outline-none text-body text-black bg-white w-full border-2 border-lines-light rounded-md px-3 py-2 transition-colors dark:bg-very-dark-grey dark:text-white dark:border-lines-dark hover:border-main-purple-hover focus:border-main-purple dark:hover:border-main-purple-hover dark:focus:border-main-purple;
   }
 
   textarea.input {

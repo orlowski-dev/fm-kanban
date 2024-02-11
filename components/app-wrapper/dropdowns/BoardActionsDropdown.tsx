@@ -6,10 +6,17 @@ import Dropdown, {
   DropdownOptionsListItem,
   DropdownOptionsListSeparator,
 } from "@/components/dropdown";
+import { MainContext, ModalContext } from "@/lib/contexts";
 import { signOut } from "next-auth/react";
-import { HiDotsVertical, HiLogout, HiTrash } from "react-icons/hi";
+import { useContext } from "react";
+import { HiDotsVertical, HiLogout, HiPlus, HiTrash } from "react-icons/hi";
+import RemoveBoardModal from "../modals/RemoveBoardModal";
+import Modal from "@/components/modal";
+import CreateNewColumnForm from "@/components/forms/CreateNewColumnForm";
 
 const BoardActionsDropdown = () => {
+  const modalContext = useContext(ModalContext);
+
   return (
     <Dropdown
       position="right"
@@ -21,7 +28,31 @@ const BoardActionsDropdown = () => {
       }
     >
       <DropdownOptionsList>
-        <DropdownOptionsListItem startIcon={<HiTrash />} variant="danger">
+        <DropdownOptionsListItem
+          startIcon={<HiPlus />}
+          onClick={() =>
+            modalContext?.dispatch({
+              type: "setModal",
+              payload: (
+                <Modal title="Create new column">
+                  <CreateNewColumnForm />
+                </Modal>
+              ),
+            })
+          }
+        >
+          Add new column
+        </DropdownOptionsListItem>
+        <DropdownOptionsListItem
+          startIcon={<HiTrash />}
+          variant="danger"
+          onClick={() =>
+            modalContext?.dispatch({
+              type: "setModal",
+              payload: <RemoveBoardModal />,
+            })
+          }
+        >
           Remove this board
         </DropdownOptionsListItem>
         <DropdownOptionsListSeparator />
